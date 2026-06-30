@@ -1,0 +1,42 @@
+---
+title: Importing Transactions
+description: Bulk upload existing transactions into Voru to get your pipeline up to date fast.
+---
+
+# Importing Transactions
+
+If you are setting up Voru mid-year or switching from another system, the import feature lets you load existing transactions in bulk rather than entering them one at a time.
+
+## How to Import
+
+1. Navigate to the **Pipeline** page
+2. Click the **Import** button in the top right area
+3. Prepare your data file in CSV format
+4. Upload the file and confirm the import
+
+## CSV Field Reference
+
+| Column | Description |
+|--------|-------------|
+| `address` | Full property address |
+| `client_name` | Buyer or seller name |
+| `type` | `Listing` or `Buyer` |
+| `status` | One of: Pre-Signed, Active, Pending, Closed, x-Cancelled, y-Sale Failed |
+| `list_date` | MM/DD/YYYY format |
+| `expiry_date` | MM/DD/YYYY format (optional for buyer deals) |
+| `close_date` | MM/DD/YYYY format |
+| `price` | Numeric value, no dollar signs or commas |
+| `gci` | Numeric value, no dollar signs or commas |
+| `lead_source` | Text label for the lead source |
+| `notes` | Optional notes |
+
+## Tips for a Clean Import
+
+- Make sure date columns use a consistent format
+- Use exact status names from the table above (capitalization matters)
+- For Type, use exactly `Listing` or `Buyer`
+- Import closed transactions from earlier in the year first so your YTD numbers are complete
+
+## After Importing
+
+Review your pipeline after importing to confirm all transactions loaded correctly. Check the funnel counts against your expected numbers. If anything looks off, you can edit individual transactions to correct them.

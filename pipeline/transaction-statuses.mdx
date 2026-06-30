@@ -1,0 +1,43 @@
+---
+title: Transaction Statuses Explained
+description: Understand what each pipeline status means and when to use it.
+---
+
+# Transaction Statuses Explained
+
+Every transaction in Voru moves through a series of statuses that reflect where it stands in the process. Keeping statuses current ensures your pipeline is accurate and your reporting is reliable.
+
+## Status Definitions
+
+| Status | What It Means |
+|--------|---------------|
+| **Pre-Signed** | A listing or buyer agreement has been discussed but not yet signed. Use this for deals in negotiation or on deck. |
+| **Active** | The listing is live on the market, or the buyer is actively searching. |
+| **Pending** | A contract has been signed and the deal is moving toward closing. |
+| **Closed** | The transaction has successfully closed. This is when GCI is counted in your financials and leaderboard. |
+| **x-Cancelled** | The deal was cancelled before closing. Prefixed with x so it sorts separately and does not affect active metrics. |
+| **y-Sale Failed** | The transaction failed after going under contract. Prefixed with y for the same reason. |
+
+## How Statuses Affect Reporting
+
+- **Closed** transactions count toward your YTD GCI, Units, and Volume on the Dashboard and Leaderboard
+- **Pending** transactions appear in Pending GCI on the Dashboard KPI card and in Upcoming Closings
+- **Active** and **Pre-Signed** transactions appear in the pipeline funnel but do not count toward closed production
+- **x-Cancelled** and **y-Sale Failed** transactions are preserved for your records but excluded from performance metrics
+
+## Listing vs. Buyer Transactions
+
+Each transaction has a **Type**:
+
+- **Listing** -- You represent the seller
+- **Buyer** -- You represent the buyer
+
+Both types move through the same statuses and both count toward GCI and units when closed.
+
+## Days on Market (DOM)
+
+For Listing transactions, Voru calculates DOM automatically from the list date.
+
+## Days to Close
+
+For Pending transactions, Voru tracks days from when the deal went pending to the expected close date.
