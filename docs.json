@@ -1,5 +1,6 @@
 {
   "name": "Voru Help Center",
+  "theme": "mint",
   "favicon": "/favicon.svg",
   "colors": {
     "primary": "#1e3a8a",
