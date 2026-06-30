@@ -1,7 +1,7 @@
 ---
-title: "Authenticate API Requests with Knowledgebase"
+title: "Knowledgebase API Authentication — Keys and Permissions"
 sidebarTitle: "Authentication"
-description: "Knowledgebase uses API keys for authentication. Generate a key from your workspace settings and pass it in the Authorization header."
+description: "Knowledgebase uses API keys for authentication. Generate a key from your workspace settings and include it in the Authorization header on every request."
 ---
 
 Every request to the Knowledgebase API must be authenticated with an API key. Keys are scoped to your workspace and inherit the permissions of the user who created them, so a key created by an Admin can perform any action while a key created by a Viewer is restricted to read-only operations. Keep your keys secret — treat them with the same care you give passwords or private tokens.

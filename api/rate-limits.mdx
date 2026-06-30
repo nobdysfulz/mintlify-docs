@@ -1,7 +1,7 @@
 ---
-title: "API Rate Limits and Quotas for Knowledgebase"
+title: "Knowledgebase API Rate Limits — Plans and Retry Handling"
 sidebarTitle: "Rate Limits"
-description: "Knowledgebase enforces rate limits per API key. Learn the limits for each plan and how to handle 429 responses in your integration."
+description: "Knowledgebase enforces per-key rate limits based on your plan. Learn the request quotas for each tier and how to handle 429 responses gracefully."
 ---
 
 To keep the Knowledgebase API fast and reliable for all customers, every API key is subject to rate limits based on your workspace plan. Limits are applied on a per-key, per-minute sliding window — each key has its own independent counter. If your integration spans multiple keys, each key's requests are counted and throttled separately.

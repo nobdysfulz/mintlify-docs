@@ -1,7 +1,7 @@
 ---
-title: "Knowledgebase REST API Reference"
+title: "Knowledgebase REST API — Developer Reference Guide"
 sidebarTitle: "API Overview"
-description: "The Knowledgebase REST API lets you create, update, and manage articles, collections, and users programmatically from any language."
+description: "The Knowledgebase REST API lets you create, update, and manage articles, collections, and users programmatically from any language or platform."
 ---
 
 The Knowledgebase REST API gives you full programmatic access to your workspace — create and publish articles, organize collections, manage team members, and search content from any application or script. The API follows REST conventions, uses JSON for all request and response bodies, and authenticates via API keys. Every resource is versioned under a stable base URL so your integrations remain reliable as the platform evolves.
@@ -20,7 +20,7 @@ The current stable version is **v1**. When breaking changes are introduced, a ne
 
 The API accepts JSON-encoded request bodies. Set the `Content-Type` header to `application/json` on all requests that include a body (POST, PUT, PATCH). Query parameters are used for filtering and pagination on GET requests.
 
-```bash
+```
 Content-Type: application/json
 ```
 
