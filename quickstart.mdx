@@ -1,47 +1,77 @@
 ---
-title: "Quickstart"
-description: "Begin with a guide on the fastest path to a successful outcome"
+title: "Get Started with Knowledgebase in 5 Minutes"
+sidebarTitle: "Quickstart"
+description: "Set up your Knowledgebase workspace, write your first article, and publish it to your help center in just a few steps."
 ---
 
-Describe how someone begins using your product. What is the first thing they need to do? Are there any prerequisites?
+By the end of this guide you'll have a live Knowledgebase help center with at least one published article organized inside a collection. The whole process takes about five minutes — no technical background required. If you'd prefer to manage content programmatically, skip to the Tip at the bottom of the page.
 
-A quickstart should take someone from zero to using your product. They'll get a quick win and a sense of what they can accomplish.
-
-## Prerequisites
-
-Before you begin, you must have:
-
-- Requirement one (for example, Node.js 18+, a free account, an API key)
-- Requirement two (for example, a compatible device, a compatible browser, a compatible operating system)
-
-## Get started
+<Note>
+  Knowledgebase offers a **14-day free trial** on all paid plans — no credit card required. You can publish your help center and invite unlimited teammates during the trial period.
+</Note>
 
 <Steps>
-  <Step title="Install">
-    Describe how to install your product or sign up.
+  <Step title="Sign up and create a workspace">
+    Head to [app.knowledgebase.io/signup](https://app.knowledgebase.io/signup) and create your account using an email address and password, or sign in with Google or Microsoft SSO.
 
-    ```bash
-    npm install your-package
-    ```
+    After you authenticate, you'll land on the **New Workspace** screen:
+
+    1. Enter a **Workspace name** (e.g., "Acme Help Center").
+    2. Confirm or edit the auto-generated **URL slug** — this becomes `app.knowledgebase.io/<slug>`.
+    3. Click **Create workspace**.
+
+    You'll be redirected to your workspace dashboard, which is empty and ready for your first article.
   </Step>
-  <Step title="Configure">
-    Describe any setup or configuration needed before first use.
+  <Step title="Create your first article">
+    In the left sidebar, click **New Article** (or press `C` anywhere in the dashboard).
 
-    ```bash
-    your-cli init
-    ```
+    The rich-text editor opens with three areas to fill in:
+
+    | Field | What to do |
+    |---|---|
+    | **Title** | Write a clear, specific title (e.g., "How to reset your password"). |
+    | **Body** | Draft your content using headings, bullet lists, images, and code blocks. Markdown shortcuts like `**bold**` and `# Heading` work natively. |
+    | **Tags** | Add one or more tags (e.g., `account`, `security`) to improve search relevance. |
+
+    Click **Save draft** in the top-right corner when you're done. Your article is saved but not yet visible to readers.
   </Step>
-  <Step title="Run it">
-    Show the first thing a user does to see it working.
+  <Step title="Organize into a collection">
+    Collections are folders that give your help center structure. Create one before publishing so your article has a home.
 
-    ```bash
-    your-cli start
-    ```
+    **Option A — From the sidebar:**
+    1. Click **Collections** in the left sidebar, then **New Collection**.
+    2. Give the collection a name (e.g., "Getting Started") and choose an emoji or icon.
+    3. Drag your article from the **Drafts** list and drop it into the new collection.
+
+    **Option B — From the article settings:**
+    1. Open your article and click the **⚙ Settings** icon in the top-right toolbar.
+    2. Under **Collection**, select your collection from the dropdown.
+    3. Click **Save**.
+
+    <Tip>
+      You can nest collections up to three levels deep. Use top-level collections for broad topics (e.g., "Account & Billing") and sub-collections for specifics (e.g., "Invoices").
+    </Tip>
+  </Step>
+  <Step title="Publish your help center">
+    You're ready to go live. Follow these steps to publish:
+
+    1. Open **Workspace Settings** (gear icon in the bottom-left corner).
+    2. Navigate to the **Publishing** tab.
+    3. Toggle **Help center visibility** from **Private** to **Public**.
+    4. Copy the public URL shown below the toggle (e.g., `https://acme.knowledgebase.io`) and share it with your customers.
+
+    To publish the individual article you created, open it in the editor and click **Publish** in the top-right corner. Published articles are immediately visible to anyone with access to your help center.
   </Step>
 </Steps>
 
-<Tip>
-  Give people a way to get help. This could be a link to a support page, a chat with a customer support agent, or a forum for your product.
+## Next Steps
 
-  Example: Need help? Reach out to us at [support@yourcompany.com](mailto:support@yourcompany.com).
+You've got a live help center — here's where to go from here.
+
+<Tip>
+  Want to create or update articles without opening the editor? Use the [Knowledgebase REST API](/api/introduction) to manage content programmatically, sync articles from your codebase, or trigger workflows from your CI/CD pipeline.
 </Tip>
+
+- **Invite your team** — Go to **Workspace Settings → Members** to add editors and admins. See the [Account Setup guide](/account-setup) for details.
+- **Customize your domain** — Map `help.yourcompany.com` to your workspace in **Settings → Custom Domain**.
+- **Explore integrations** — Connect Knowledgebase to Slack, Intercom, or Zendesk in **Settings → Integrations**.

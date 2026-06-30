@@ -1,0 +1,47 @@
+---
+title: "Frequently Asked Questions About Knowledgebase"
+sidebarTitle: "FAQ"
+description: "Answers to the most common questions about Knowledgebase plans, limits, features, billing, and data management."
+---
+
+Whether you're just getting started or managing a mature help center, you probably have questions about how Knowledgebase works. Below you'll find answers to the questions our customers ask most often, covering everything from article limits and custom domains to billing, permissions, and data exports. If you don't see your question here, reach out to our support team at support@knowledgebase.io.
+
+<Accordion title="How many articles can I create?">
+  The number of articles you can create depends on your plan. The **Starter** plan includes up to 50 articles, the **Growth** plan supports up to 500 articles, and the **Business** and **Enterprise** plans offer unlimited articles. You can check your current usage at any time under **Workspace Settings → Usage**. If you're approaching your limit, you can upgrade your plan from the **Billing** page.
+</Accordion>
+
+<Accordion title="Can I use a custom domain?">
+  Yes — custom domains are supported on the **Growth** plan and above. To set one up, go to **Workspace Settings → Custom Domain** and enter the domain you want to use (for example, `help.yourcompany.com`). You'll need to add a CNAME record pointing to `hosting.knowledgebase.io` through your DNS provider. After the record propagates, Knowledgebase will automatically provision an SSL certificate for your domain. The process typically takes between a few minutes and 48 hours depending on your DNS provider.
+</Accordion>
+
+<Accordion title="Is my content indexed by search engines?">
+  By default, your published help center is publicly accessible and fully indexable by search engines like Google. Knowledgebase generates a sitemap automatically and adds standard SEO meta tags to every article page to help with discoverability. If you'd prefer to keep your content private and out of search engine indexes, you can enable the **Private Help Center** option under **Workspace Settings → Visibility**, which adds a `noindex` directive to all pages and optionally restricts access to logged-in users only.
+</Accordion>
+
+<Accordion title="How do I export my articles?">
+  You can export all of your articles at any time from **Workspace Settings → Data → Export**. Knowledgebase exports your content as a ZIP archive containing each article as a Markdown file, along with a JSON manifest of article metadata such as titles, slugs, collection names, and publication dates. Exports are available on all plans. For large workspaces, the export may take a few minutes to prepare; you'll receive an email with a download link when it's ready.
+</Accordion>
+
+<Accordion title="Can multiple people edit the same article at the same time?">
+  Knowledgebase supports multi-user workspaces where teammates can all access and edit articles, but simultaneous editing of the same article by two people at the same time is not currently supported. If two people open the same article in edit mode, the second person will see a warning that the article is currently being edited. We recommend coordinating edits or using the **Draft** status to indicate that an article is actively being worked on. Real-time collaborative editing is on our product roadmap.
+</Accordion>
+
+<Accordion title="What happens when my trial ends?">
+  Your Knowledgebase trial lasts 14 days and gives you full access to all Business plan features. When the trial ends, your workspace is automatically downgraded to the **Starter** plan — your data is never deleted. If your workspace exceeds the Starter plan limits (for example, you created more than 50 articles during the trial), your extra articles are hidden from your public help center but not deleted. You can upgrade to a paid plan at any time to restore full access. You'll receive reminder emails at 7 days, 3 days, and 1 day before your trial expires.
+</Accordion>
+
+<Accordion title="Can I restrict my help center to logged-in users only?">
+  Yes. You can make your help center private so that only authenticated users can view it. Go to **Workspace Settings → Visibility → Private Help Center** and toggle the setting on. Once enabled, visitors will be redirected to a login page before they can access any articles. You can manage who has access by inviting users to your workspace or, on the Business and Enterprise plans, by configuring Single Sign-On (SSO) so your existing identity provider controls access automatically.
+</Accordion>
+
+<Accordion title="Does Knowledgebase support multiple languages?">
+  Yes, Knowledgebase supports multi-language help centers on the **Business** and **Enterprise** plans. You can create separate language variants of each article and Knowledgebase will serve the correct version based on the visitor's browser language preference or a language switcher you can enable in your help center settings. Currently supported languages include English, Spanish, French, German, Portuguese, Dutch, Italian, and Japanese, with more being added regularly. Go to **Workspace Settings → Languages** to enable the languages you need.
+</Accordion>
+
+<Accordion title="How do I delete my workspace?">
+  To permanently delete your workspace, go to **Workspace Settings → General → Danger Zone** and click **Delete Workspace**. You'll be asked to type your workspace name to confirm the action. Deleting your workspace is irreversible — all articles, collections, media, and member data will be permanently removed. We strongly recommend exporting your content before proceeding. If you're on a paid plan, deleting your workspace also cancels your subscription immediately and no further charges will be made.
+</Accordion>
+
+<Accordion title="Is there an API I can use to manage content programmatically?">
+  Yes — Knowledgebase offers a fully documented REST API that gives you complete programmatic control over your workspace. You can use the API to create, update, publish, and delete articles and collections, manage members, retrieve analytics data, and more. Authentication uses API keys, which you can generate under **Workspace Settings → API**. The API is available on all paid plans. To get started, visit the [API documentation](/api/introduction) or explore the interactive API reference to try endpoints directly in your browser.
+</Accordion>

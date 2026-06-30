@@ -1,0 +1,57 @@
+---
+title: "Automate Knowledgebase Workflows With Zapier"
+sidebarTitle: "Zapier"
+description: "Use Zapier to trigger workflows when articles are published, updated, or deleted, and connect Knowledgebase to 5,000+ apps."
+---
+
+The Knowledgebase Zapier integration lets you build automated workflows — called Zaps — that react to changes in your help center and connect them to thousands of other tools. Whether you want to notify your team when new content goes live, sync articles to an external CMS, or log every update to a spreadsheet, Zapier makes it possible without writing a single line of code.
+
+## Connecting Knowledgebase to Zapier
+
+<Steps>
+  <Step title="Find Knowledgebase in the Zapier app directory">
+    Log in to your Zapier account and click **Create Zap**. In the trigger or action search bar, type "Knowledgebase" and select it from the app directory. If you don't see it, make sure you're searching for the full name "Knowledgebase."
+  </Step>
+  <Step title="Connect your account using your API key">
+    Zapier will prompt you to connect your Knowledgebase account. Click **Sign in** and paste your Knowledgebase API key into the field provided. You can find your API key under **Workspace Settings → API**. For more details on generating and managing API keys, see the [API authentication guide](/api/authentication).
+  </Step>
+  <Step title="Authorize the connection">
+    Click **Yes, Continue** to authorize Zapier to access your Knowledgebase workspace. Once the connection is verified, you'll see a confirmation and can proceed to configure your trigger or action.
+  </Step>
+</Steps>
+
+## Available Triggers
+
+Triggers are events in Knowledgebase that can kick off a Zap. The following triggers are available:
+
+| Trigger | Description |
+|---|---|
+| Article Published | Fires when an article is published for the first time or re-published after being unpublished. |
+| Article Updated | Fires when an already-published article is edited and saved. |
+| Article Deleted | Fires when an article is permanently deleted from your workspace. |
+| Collection Created | Fires when a new collection is created in your workspace. |
+
+## Available Actions
+
+Actions let you create or modify content in Knowledgebase as part of a Zap triggered by another app. The following actions are available:
+
+| Action | Description |
+|---|---|
+| Create Article | Creates a new draft article in a specified collection. You can populate the title, body content, and metadata from data passed in by the trigger. |
+| Update Article | Updates the content or metadata of an existing article, identified by its article ID. |
+| Search Articles | Searches your Knowledgebase articles by keyword and returns matching results for use in subsequent Zap steps. |
+
+## Example Zap: Announce New Articles in Slack
+
+One of the most popular uses of the Knowledgebase Zapier integration is automatically posting a Slack message whenever a new article is published — keeping your whole team informed without any manual effort.
+
+Here's how the Zap works:
+
+1. **Trigger — Article Published (Knowledgebase):** The Zap watches your Knowledgebase workspace for the `Article Published` event. As soon as any article goes live, Zapier picks up the article's title, URL, and collection name.
+2. **Action — Send Channel Message (Slack):** Zapier sends a message to a Slack channel of your choice. You can customize the message template, for example: _"📘 New article published: [Article Title] — [Article URL]"_.
+
+Once active, this Zap runs automatically in the background. Every time someone on your team publishes an article, your entire Slack workspace gets the announcement instantly — no copy-pasting links or manual announcements needed.
+
+<Tip>
+  If you need more control than Zapier offers — such as bulk operations, custom filtering logic, or direct database integration — consider using the [Knowledgebase REST API](/api/introduction) directly. The API gives you full programmatic access to every resource in your workspace.
+</Tip>

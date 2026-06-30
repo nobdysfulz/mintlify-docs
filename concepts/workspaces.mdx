@@ -1,0 +1,73 @@
+---
+title: "Workspaces: Manage Multiple Help Centers"
+sidebarTitle: "Workspaces"
+description: "A Knowledgebase workspace is an isolated environment for your help center content, settings, members, and custom domain."
+---
+
+A workspace is your dedicated environment inside Knowledgebase — a fully self-contained space where your team creates content, manages members, and publishes a help center to the world. Everything from the articles your team writes to the custom domain your customers visit lives within a workspace. Each workspace is completely isolated from every other workspace, so content, settings, and member permissions never bleed across boundaries.
+
+## What's in a Workspace
+
+Every workspace contains everything you need to run a complete help center experience.
+
+<CardGroup cols={2}>
+  <Card title="Articles" icon="file-lines">
+    All the articles your team writes and publishes live inside the workspace. Articles are private to the workspace — they are never shared with or visible to other workspaces on your account.
+  </Card>
+  <Card title="Collections" icon="folder-open">
+    Collections organize your articles into a browsable structure. Each workspace has its own independent collection hierarchy that you design from scratch.
+  </Card>
+  <Card title="Members" icon="users">
+    The teammates you invite to collaborate on content are members of a specific workspace. A person can be a member of multiple workspaces with different roles in each.
+  </Card>
+  <Card title="Settings" icon="gear">
+    Workspace-level settings control the name, slug, logo, language, and custom domain for the help center published from that workspace. Changes here only affect the current workspace.
+  </Card>
+  <Card title="API Keys" icon="key">
+    API keys are scoped to a workspace, so integrations and automations you build are always connected to the right help center. You can generate and revoke keys from the workspace's API settings page.
+  </Card>
+</CardGroup>
+
+## Multiple Workspaces
+
+Your Knowledgebase account can hold multiple workspaces. Here are the most common reasons teams choose to run more than one.
+
+<Accordion title="Multi-product companies">
+  If your company ships more than one product, each with its own distinct user base and feature set, a separate workspace per product keeps documentation clean and prevents customers from one product from getting confused by content aimed at another. Each workspace gets its own domain, branding, and member list.
+</Accordion>
+
+<Accordion title="Multi-brand organizations">
+  Companies that operate several brands under one corporate umbrella can give each brand its own workspace with independent logos, color schemes, and custom domains — so customers always see a help center that feels native to the brand they're engaging with.
+</Accordion>
+
+<Accordion title="Multi-language support">
+  If you serve customers in more than one language, you can maintain a separate workspace for each locale. This approach gives your localization team full control over content structure, article ordering, and terminology without creating a tangled mix of languages in a single workspace.
+</Accordion>
+
+## Workspace Settings
+
+You can customize how your workspace looks and behaves from the **Settings → General** page.
+
+<Steps>
+  <Step title="Name">
+    The display name of your workspace shown in the top navigation bar and on the Knowledgebase account switcher. Choose something that clearly identifies the product or brand this workspace represents.
+  </Step>
+  <Step title="Slug">
+    The URL-friendly identifier used in your Knowledgebase-hosted domain (e.g., `your-slug.knowledgebase.io`). Changing the slug updates your hosted URL, so update any links pointing to the old address.
+  </Step>
+  <Step title="Logo">
+    Upload a logo (PNG or SVG, recommended height 40 px) to display in the help center header. The logo also appears in email notifications sent from this workspace.
+  </Step>
+  <Step title="Custom Domain">
+    Connect a domain you own (e.g., `help.yourcompany.com`) so customers reach your help center at a branded URL. Add the provided CNAME record to your DNS provider and Knowledgebase handles SSL automatically.
+  </Step>
+  <Step title="Language">
+    Set the default language for the workspace. This controls the language of UI chrome elements (search placeholder text, navigation labels, etc.) that Knowledgebase renders around your content.
+  </Step>
+</Steps>
+
+<Tip>
+  You can switch between workspaces instantly from the top navigation bar. Click your workspace name in the upper-left corner to open the workspace switcher and jump to any workspace on your account — no need to log out and back in.
+</Tip>
+
+To set up a new workspace or configure an existing one, see the [Account Setup guide](/account-setup).

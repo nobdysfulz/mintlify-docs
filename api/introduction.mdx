@@ -1,0 +1,94 @@
+---
+title: "Knowledgebase REST API Reference"
+sidebarTitle: "API Overview"
+description: "The Knowledgebase REST API lets you create, update, and manage articles, collections, and users programmatically from any language."
+---
+
+The Knowledgebase REST API gives you full programmatic access to your workspace — create and publish articles, organize collections, manage team members, and search content from any application or script. The API follows REST conventions, uses JSON for all request and response bodies, and authenticates via API keys. Every resource is versioned under a stable base URL so your integrations remain reliable as the platform evolves.
+
+## Base URL
+
+All API requests must be made to the following base URL. Include the version prefix (`v1`) in every request path.
+
+```
+https://api.knowledgebase.io/v1
+```
+
+The current stable version is **v1**. When breaking changes are introduced, a new version prefix will be released and the previous version will be supported for a minimum of 12 months.
+
+## Request Format
+
+The API accepts JSON-encoded request bodies. Set the `Content-Type` header to `application/json` on all requests that include a body (POST, PUT, PATCH). Query parameters are used for filtering and pagination on GET requests.
+
+```bash
+Content-Type: application/json
+```
+
+A typical request with a JSON body looks like this:
+
+```bash
+curl -X POST https://api.knowledgebase.io/v1/articles \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Getting Started", "body": "<p>Welcome!</p>", "status": "published"}'
+```
+
+## Response Format
+
+All responses return a JSON object. Successful responses wrap the primary payload in a `data` key. Metadata such as pagination cursors and request tracing IDs are returned in a `meta` key. Error responses replace `data` with an `error` object containing a machine-readable `code`, a human-readable `message`, and the HTTP `status` code.
+
+**Success response**
+
+```json
+{
+  "data": {
+    "id": "art_abc123",
+    "title": "Getting Started"
+  },
+  "meta": {
+    "request_id": "req_xyz"
+  }
+}
+```
+
+**Error response**
+
+```json
+{
+  "error": {
+    "code": "not_found",
+    "message": "Article not found",
+    "status": 404
+  }
+}
+```
+
+Always check for the presence of the `error` key before reading `data`. The `meta.request_id` field is useful when contacting support to trace a specific request.
+
+## HTTP Status Codes
+
+The API uses standard HTTP status codes to communicate the outcome of every request.
+
+| Status | Meaning |
+|--------|---------|
+| `200 OK` | The request succeeded and a response body is returned. |
+| `201 Created` | A new resource was created successfully. |
+| `204 No Content` | The request succeeded with no response body (e.g. DELETE). |
+| `400 Bad Request` | The request was malformed or missing required fields. |
+| `401 Unauthorized` | No valid API key was provided. |
+| `403 Forbidden` | Your API key does not have permission to perform this action. |
+| `404 Not Found` | The requested resource does not exist. |
+| `422 Unprocessable Entity` | The request was well-formed but failed validation rules. |
+| `429 Too Many Requests` | You have exceeded your plan's rate limit. |
+| `500 Internal Server Error` | An unexpected error occurred on the Knowledgebase servers. |
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Authentication" icon="key" href="/api/authentication">
+    Learn how to generate an API key and authenticate your requests securely.
+  </Card>
+  <Card title="Rate Limits" icon="gauge" href="/api/rate-limits">
+    Understand the rate limits for your plan and how to handle 429 responses.
+  </Card>
+</CardGroup>

@@ -1,0 +1,76 @@
+---
+title: "API Rate Limits and Quotas for Knowledgebase"
+sidebarTitle: "Rate Limits"
+description: "Knowledgebase enforces rate limits per API key. Learn the limits for each plan and how to handle 429 responses in your integration."
+---
+
+To keep the Knowledgebase API fast and reliable for all customers, every API key is subject to rate limits based on your workspace plan. Limits are applied on a per-key, per-minute sliding window — each key has its own independent counter. If your integration spans multiple keys, each key's requests are counted and throttled separately.
+
+## Rate Limit Tiers
+
+The number of requests you can make per minute depends on the plan your workspace is subscribed to.
+
+| Plan | Requests per Minute | Notes |
+|------|---------------------|-------|
+| **Free** | 60 | Suitable for prototyping and personal projects. |
+| **Starter** | 300 | Ideal for small teams and lightweight integrations. |
+| **Pro** | 1,000 | Designed for production workloads with moderate volume. |
+| **Enterprise** | Custom | Contact your account manager to configure higher limits. |
+
+Burst requests beyond your plan's limit within a minute window will receive a `429 Too Many Requests` response. The window resets at the Unix timestamp indicated in the `X-RateLimit-Reset` header.
+
+## Rate Limit Headers
+
+Every API response includes the following headers so you can monitor your consumption in real time and react before hitting a limit.
+
+| Header | Description |
+|--------|-------------|
+| `X-RateLimit-Limit` | The maximum number of requests allowed per minute for your key. |
+| `X-RateLimit-Remaining` | The number of requests remaining in the current window. |
+| `X-RateLimit-Reset` | Unix timestamp (UTC) indicating when the current window resets and your limit replenishes. |
+
+Example response headers from a Starter plan key:
+
+```
+X-RateLimit-Limit: 300
+X-RateLimit-Remaining: 287
+X-RateLimit-Reset: 1717200060
+```
+
+In this example, 13 requests have been used in the current window and 287 remain. The window resets at Unix time `1717200060`. You can convert this timestamp to a human-readable date with `new Date(1717200060 * 1000)` in JavaScript or `datetime.fromtimestamp(1717200060)` in Python.
+
+## Handling 429 Responses
+
+When you receive a `429` response, the API will also return a `Retry-After` header indicating the number of seconds to wait before retrying. A well-behaved integration should implement exponential backoff to avoid hammering the API and to recover gracefully.
+
+The following JavaScript utility function retries a request with exponential backoff when it receives a `429`:
+
+```javascript
+async function fetchWithRetry(url, options, retries = 3) {
+  for (let i = 0; i < retries; i++) {
+    const res = await fetch(url, options);
+    if (res.status !== 429) return res;
+    const retryAfter = res.headers.get("Retry-After") || 2 ** i;
+    await new Promise(r => setTimeout(r, retryAfter * 1000));
+  }
+  throw new Error("Rate limit exceeded after retries");
+}
+```
+
+This function attempts the request up to `retries` times. On each `429` it reads the `Retry-After` header and waits that many seconds before the next attempt. If `Retry-After` is not present it falls back to `2^i` seconds (1 s, 2 s, 4 s, …). After exhausting all retries it throws an error so the calling code can surface the failure.
+
+A 429 error response body looks like this:
+
+```json
+{
+  "error": {
+    "code": "rate_limit_exceeded",
+    "message": "You have exceeded your plan's rate limit. Please retry after 15 seconds.",
+    "status": 429
+  }
+}
+```
+
+<Tip>
+  Cache API responses on your side whenever the underlying data doesn't change frequently. For example, collection lists and published article metadata rarely change by the minute — storing a short-lived cache (30–60 seconds) on your server can dramatically reduce your API call volume and keep you well within your plan's limits.
+</Tip>

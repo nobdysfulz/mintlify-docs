@@ -1,0 +1,73 @@
+---
+title: "Roles and Permissions in Knowledgebase"
+sidebarTitle: "Permissions"
+description: "Knowledgebase uses role-based access control. Learn what each role can do and how to assign roles to teammates in your workspace."
+---
+
+Knowledgebase uses role-based access control (RBAC) to make sure every teammate has exactly the level of access they need — no more, no less. When you invite someone to a workspace, you assign them a role that determines what they can create, edit, and manage. Getting roles right from the start protects sensitive settings, prevents accidental deletions, and gives your writers a focused interface with only the actions they actually need.
+
+## Roles and What They Can Do
+
+There are three roles available in every Knowledgebase workspace: **Admin**, **Editor**, and **Viewer**.
+
+| Permission | Admin | Editor | Viewer |
+|---|:---:|:---:|:---:|
+| Create articles | ✅ | ✅ | ❌ |
+| Edit articles | ✅ | ✅ | ❌ |
+| Delete articles | ✅ | ❌ | ❌ |
+| Manage collections | ✅ | ✅ | ❌ |
+| Manage members | ✅ | ❌ | ❌ |
+| Workspace settings | ✅ | ❌ | ❌ |
+| API access | ✅ | ❌ | ❌ |
+
+<Info>
+  **Admin** — Full control over the workspace. Admins can do everything Editors can do, plus manage members, change workspace settings, and generate API keys. Every workspace must have at least one Admin at all times.
+
+  **Editor** — The standard role for content contributors. Editors can create, update, and organize articles and collections but cannot touch membership settings, workspace configuration, or API keys.
+
+  **Viewer** — Read-only access to the workspace's internal content. Viewers can browse and read articles (including Private collections) but cannot make any changes. Ideal for stakeholders who need visibility without editing rights.
+</Info>
+
+## Assigning Roles
+
+You can view and change a member's role at any time from the **Members** page in your workspace settings.
+
+<Steps>
+  <Step title="Open the Members page">
+    Navigate to **Settings → Members** in the workspace sidebar. You'll see a list of all current members along with their email addresses and assigned roles.
+  </Step>
+  <Step title="Find the member">
+    Use the search bar to find a specific member by name or email address, or scroll through the list manually.
+  </Step>
+  <Step title="Change the role">
+    Click the role badge next to the member's name to open the role dropdown. Select the new role — **Admin**, **Editor**, or **Viewer** — and the change takes effect immediately. The member does not need to log out and back in.
+  </Step>
+  <Step title="Remove a member">
+    To remove a member from the workspace entirely, click the **⋯** menu at the end of their row and select **Remove from workspace**. This revokes all access without deleting their Knowledgebase account.
+  </Step>
+</Steps>
+
+<Warning>
+  Only **Admins** can delete a workspace. Workspace deletion is permanent — all articles, collections, settings, and API keys are destroyed and cannot be recovered. If you need to remove a workspace, back up any content first and confirm with all stakeholders before proceeding.
+</Warning>
+
+## API Key Permissions
+
+API keys let you integrate Knowledgebase with external tools, automate content workflows, and build custom experiences on top of your knowledge base.
+
+<CardGroup cols={1}>
+  <Card title="Keys inherit the creator's role" icon="key">
+    When a workspace member generates an API key, that key carries the same permissions as the member who created it. A key created by an Admin has full API access; a key created by an Editor is limited to the same actions an Editor can perform in the UI. This means you should have an Admin generate keys that need write access to workspace settings, and use Editor-generated keys for content-only integrations.
+  </Card>
+</CardGroup>
+
+<Tabs>
+  <Tab title="Generating a key">
+    Go to **Settings → API Keys** and click **Generate New Key**. Give the key a descriptive name (e.g., `Zapier Integration` or `CI/CD Publisher`) so you can identify it later. Copy the key immediately — Knowledgebase only displays the full key once.
+  </Tab>
+  <Tab title="Revoking a key">
+    To revoke a key, open **Settings → API Keys**, find the key in the list, and click **Revoke**. Revocation is instant and cannot be undone. Any integration using the revoked key will lose access immediately, so make sure you've updated downstream systems before revoking.
+  </Tab>
+</Tabs>
+
+For help inviting teammates and configuring your workspace for the first time, see the [Account Setup guide](/account-setup).

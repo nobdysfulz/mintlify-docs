@@ -1,0 +1,67 @@
+---
+title: "Collections: Organize Articles Into Logical Groups"
+sidebarTitle: "Collections"
+description: "Collections let you group related articles together, define the order they appear in, and control visibility for customers and teammates."
+---
+
+A collection is a named group of articles that belong together — think of it as a chapter in your knowledge base. Collections give your content structure, making it easy for readers to browse topics at a high level and drill into the details they need. Rather than presenting customers with an undifferentiated list of hundreds of articles, collections surface the right content in the right context, reducing time-to-answer and support volume.
+
+## Collection Structure
+
+Collections support a parent/child hierarchy so you can model complex topic areas without flattening everything into a single level.
+
+<Steps>
+  <Step title="Create a parent collection">
+    Start with a broad topic as your top-level collection — for example, **Getting Started** or **Billing & Payments**. This becomes the entry point readers see on your knowledge base home page.
+  </Step>
+  <Step title="Add child collections">
+    Nest more specific topics beneath the parent. For instance, **Billing & Payments** might contain child collections for **Invoices**, **Subscriptions**, and **Refunds**. Child collections appear as sub-sections within the parent.
+  </Step>
+  <Step title="Add articles to a collection">
+    Drag articles into any collection from the Content panel, or assign an article to a collection directly from the article editor's metadata sidebar. An article can belong to more than one collection.
+  </Step>
+  <Step title="Set the display order">
+    Drag and drop articles and child collections within a parent to control the exact order they appear to readers. The order you set here is the order your knowledge base renders — there is no automatic alphabetical sorting unless you choose it.
+  </Step>
+</Steps>
+
+<Note>
+  Collection nesting is limited to **3 levels deep** (parent → child → grandchild). If your content requires deeper hierarchy, consider splitting it into separate top-level collections or using tags to link related articles across collections.
+</Note>
+
+## Visibility Settings
+
+Each collection has its own visibility setting, giving you fine-grained control over who can access its contents.
+
+<Tabs>
+  <Tab title="Public">
+    The collection and all articles inside it are visible to anyone who visits your knowledge base — no login required. Use Public for customer-facing help content, product documentation, and anything you want indexed by search engines.
+  </Tab>
+  <Tab title="Private">
+    The collection is only visible to authenticated workspace members. Readers who are not logged in to your knowledge base will not see the collection or its articles in navigation or search results. Use Private for internal SOPs, team runbooks, and draft content.
+  </Tab>
+  <Tab title="Password-Protected">
+    The collection is visible to anyone who enters the correct password on the access prompt. Knowledgebase displays a password gate before revealing the collection's contents. Use Password-Protected for partner documentation, beta program guides, or content you want to share selectively without requiring a full workspace account.
+  </Tab>
+</Tabs>
+
+## Collection Metadata
+
+Collection metadata controls how the collection appears in your knowledge base navigation, on the home page, and in search results.
+
+<CardGroup cols={2}>
+  <Card title="Name" icon="pen">
+    The display name of the collection shown in navigation menus, breadcrumbs, and the knowledge base home page. Keep names short and descriptive — ideally two to four words.
+  </Card>
+  <Card title="Description" icon="align-left">
+    A short summary of what the collection covers. Shown beneath the collection name on the home page and in search result snippets. Aim for one to two sentences.
+  </Card>
+  <Card title="Icon" icon="icons">
+    An emoji or icon from the built-in icon library displayed next to the collection name in the navigation sidebar. Icons help readers visually distinguish collections at a glance.
+  </Card>
+  <Card title="Cover Image" icon="image">
+    A banner image shown at the top of the collection's landing page. Recommended dimensions are 1200 × 400 px. Leave blank to use your workspace's default cover style.
+  </Card>
+</CardGroup>
+
+For a hands-on walkthrough of building your collection structure, see the [Organizing Content guide](/guides/organizing-content).

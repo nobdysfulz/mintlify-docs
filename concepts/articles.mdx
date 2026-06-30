@@ -1,0 +1,88 @@
+---
+title: "Articles: The Building Blocks of Your Knowledge Base"
+sidebarTitle: "Articles"
+description: "Articles are the core content unit in Knowledgebase. Learn about article types, statuses, editor features, and metadata options."
+---
+
+Articles are the fundamental content units in Knowledgebase. Each article is a self-contained page of information — a step-by-step guide, a quick answer, or a detailed explanation — that you write once and share with customers, teammates, or both. You can organize articles into collections, tag them for easy discovery, and control their visibility at any time.
+
+## Article Types
+
+Knowledgebase offers three article types, each designed for a different kind of content. Choosing the right type helps readers navigate your knowledge base more intuitively and sets the right expectations before they even start reading.
+
+<CardGroup cols={3}>
+  <Card title="Standard" icon="file-lines">
+    A general-purpose article for any topic that doesn't fit a rigid structure. Use Standard articles for product overviews, reference material, troubleshooting guides, and anything else that benefits from flexible, free-form content.
+  </Card>
+  <Card title="FAQ" icon="circle-question">
+    A focused question-and-answer format built for quick answers. FAQ articles surface prominently in search results and are ideal for addressing common customer questions without requiring them to read through long prose.
+  </Card>
+  <Card title="How-to" icon="list-check">
+    A step-by-step walkthrough that guides the reader through completing a specific task. How-to articles render with numbered steps and support inline images and callouts so every instruction is crystal clear.
+  </Card>
+</CardGroup>
+
+## Article Statuses
+
+Every article moves through a lifecycle managed by its status. You can change an article's status at any time from the article editor or from the Articles list view.
+
+| Status | Visible to readers? | Description |
+|---|---|---|
+| **Draft** | No | The article is a work in progress. Only workspace members can view it in the editor. |
+| **Published** | Yes | The article is live and visible to anyone with access to your knowledge base. |
+| **Archived** | No | The article is hidden from readers and removed from search results but preserved for reference. |
+
+## Editor Features
+
+The Knowledgebase editor gives you everything you need to write clear, engaging articles without leaving your browser.
+
+<Accordion title="Rich Text Editing">
+  Format content with bold, italic, underline, strikethrough, inline code, headings (H1–H4), bulleted lists, numbered lists, and blockquotes — all available from the floating toolbar that appears whenever you select text.
+</Accordion>
+
+<Accordion title="Markdown Toggle">
+  Prefer writing in Markdown? Switch the editor to Markdown mode at any time using the toggle in the top-right corner of the editor. Your content is converted automatically, and you can switch back to rich text without losing any formatting.
+</Accordion>
+
+<Accordion title="Media Embeds">
+  Insert images, videos, and external embeds (YouTube, Loom, CodeSandbox, and more) directly into the article body. Drag and drop an image from your desktop or paste a URL to embed supported media inline.
+</Accordion>
+
+<Accordion title="Code Blocks">
+  Add fenced code blocks with syntax highlighting for over 100 languages. Select the language from the dropdown that appears when you insert a code block, and readers can copy the code to their clipboard with a single click.
+</Accordion>
+
+<Accordion title="Callouts">
+  Highlight important information with built-in callout blocks: **Note**, **Tip**, **Warning**, and **Info**. Insert a callout from the `/` command menu and choose the type that matches the urgency of your message.
+</Accordion>
+
+## Article Metadata
+
+Metadata helps you keep your knowledge base organized and ensures your articles perform well in both internal search and external search engines.
+
+<CardGroup cols={2}>
+  <Card title="Title" icon="heading">
+    The primary heading displayed at the top of the article and in search results. Keep titles clear and descriptive.
+  </Card>
+  <Card title="Slug" icon="link">
+    The URL-friendly identifier for the article (e.g., `/articles/getting-started`). Auto-generated from the title but fully editable.
+  </Card>
+  <Card title="Tags" icon="tag">
+    Freeform labels you attach to an article to group it with related content across collections. Tags power the "Related Articles" widget.
+  </Card>
+  <Card title="Author" icon="user">
+    The workspace member credited as the article's author. Defaults to the creator but can be reassigned to any member.
+  </Card>
+  <Card title="Last Updated" icon="clock">
+    Automatically set whenever the article is saved. Displayed to readers so they know how fresh the content is.
+  </Card>
+  <Card title="SEO Description" icon="magnifying-glass">
+    A 150–160 character summary used as the meta description for search engines. Falls back to the article's first paragraph if left blank.
+  </Card>
+</CardGroup>
+
+<Tip>
+  Use tags to connect related articles that live in different collections. For example, tagging articles with `billing` or `enterprise` makes them discoverable through filtered search and the "Related Articles" section — even when they aren't in the same collection.
+</Tip>
+
+Ready to write your first article? Head over to the [Creating Articles guide](/guides/creating-articles) for a step-by-step walkthrough of the full authoring workflow.

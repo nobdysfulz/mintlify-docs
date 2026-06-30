@@ -1,0 +1,139 @@
+---
+title: "Search Articles via the Knowledgebase API"
+sidebarTitle: "Search"
+description: "Use the GET /search endpoint to query published articles by keyword. Returns ranked results with title, excerpt, and article URL."
+---
+
+The Search API lets you bring Knowledgebase's full-text search capability directly into your own products. Send a keyword query and receive a ranked list of matching published articles — complete with titles, plain-text excerpts, and direct URLs. You can scope the search to a specific collection, filter by tag, and paginate through results. Only published articles are returned; drafts and archived content are excluded.
+
+---
+
+## GET /search
+
+Search across all published articles in the workspace using a keyword query.
+
+```bash
+GET https://api.knowledgebase.io/v1/search
+```
+
+**Query Parameters**
+
+<ParamField query="q" type="string" required>
+  The search query string. Supports plain keywords and quoted phrases (e.g. `"password reset"`). Minimum 2 characters.
+</ParamField>
+
+<ParamField query="collection_id" type="string">
+  Restrict results to articles within a specific collection. Does not include articles from that collection's subcollections unless they are direct children.
+</ParamField>
+
+<ParamField query="tag" type="string">
+  Return only articles that carry this tag.
+</ParamField>
+
+<ParamField query="page" type="integer" default="1">
+  The page of results to return.
+</ParamField>
+
+<ParamField query="per_page" type="integer" default="10">
+  Number of results per page. Maximum `50`.
+</ParamField>
+
+---
+
+## The Search Result Object
+
+Each item in the `results` array represents a single matching article.
+
+<ResponseField name="id" type="string">
+  The unique ID of the matching article.
+</ResponseField>
+
+<ResponseField name="title" type="string">
+  The article's full title.
+</ResponseField>
+
+<ResponseField name="slug" type="string">
+  URL-safe slug for the article.
+</ResponseField>
+
+<ResponseField name="excerpt" type="string">
+  A plain-text snippet from the article body highlighting the context around the matched keywords. Up to 200 characters.
+</ResponseField>
+
+<ResponseField name="url" type="string">
+  The fully qualified public URL of the article on your Knowledgebase help center.
+</ResponseField>
+
+<ResponseField name="collection_id" type="string">
+  The ID of the collection this article belongs to.
+</ResponseField>
+
+<ResponseField name="score" type="number">
+  A relevance score between `0.0` and `1.0`. Higher scores indicate stronger matches. Results are sorted by score descending.
+</ResponseField>
+
+---
+
+## Example Request
+
+```bash
+curl "https://api.knowledgebase.io/v1/search?q=getting+started&per_page=5" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+## Example Response
+
+```json
+{
+  "data": {
+    "results": [
+      {
+        "id": "art_abc123",
+        "title": "Getting Started with Knowledgebase",
+        "slug": "getting-started-with-knowledgebase",
+        "excerpt": "Welcome to Knowledgebase. This guide walks you through setting up your first workspace, inviting your team, and publishing your first article...",
+        "url": "https://help.yourcompany.io/articles/getting-started-with-knowledgebase",
+        "collection_id": "col_xyz789",
+        "score": 0.97
+      },
+      {
+        "id": "art_def456",
+        "title": "Getting Started with the REST API",
+        "slug": "getting-started-with-the-rest-api",
+        "excerpt": "The Knowledgebase REST API lets developers automate content management. Before getting started, generate an API key from your workspace settings...",
+        "url": "https://help.yourcompany.io/articles/getting-started-with-the-rest-api",
+        "collection_id": "col_int002",
+        "score": 0.84
+      }
+    ],
+    "total": 2,
+    "page": 1
+  },
+  "meta": {
+    "request_id": "req_search_001"
+  }
+}
+```
+
+The top-level `data` object contains three keys:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `results` | array | Ordered list of matching article objects. |
+| `total` | integer | Total number of matching articles across all pages. |
+| `page` | integer | The current page number returned. |
+
+---
+
+## Scoping Search to a Collection
+
+You can narrow results to a specific section of your help center by adding the `collection_id` parameter. This is useful when building in-page search widgets that should only surface articles relevant to the current section a user is browsing.
+
+```bash
+curl "https://api.knowledgebase.io/v1/search?q=billing&collection_id=col_abc001&per_page=5" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+<Tip>
+  Use `collection_id` to scope search results when embedding a search bar inside a specific section of your product. For example, a billing FAQ widget should search only within your "Account & Billing" collection rather than returning unrelated developer docs — pass that collection's ID to keep results focused and relevant for your users.
+</Tip>

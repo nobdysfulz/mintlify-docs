@@ -1,0 +1,351 @@
+---
+title: "REST API Endpoints for Collections"
+sidebarTitle: "Collections"
+description: "Manage collections via the Knowledgebase API. Create, list, update, and delete collections that organize your articles."
+---
+
+Collections are the organizational backbone of your Knowledgebase workspace. They group related articles together, appear as sections in your help center, and can be nested to create a hierarchy. Each collection has a visibility setting that controls whether it is publicly accessible, private to your team, or password-protected. The Collections API lets you build and maintain that structure programmatically.
+
+---
+
+## The Collection Object
+
+<ResponseField name="id" type="string">
+  Unique identifier for the collection, prefixed with `col_`.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The display name of the collection.
+</ResponseField>
+
+<ResponseField name="slug" type="string">
+  URL-safe slug derived from the name, unique within the workspace.
+</ResponseField>
+
+<ResponseField name="description" type="string | null">
+  Optional description shown on the collection's landing page.
+</ResponseField>
+
+<ResponseField name="parent_id" type="string | null">
+  The ID of the parent collection, or `null` if this is a top-level collection.
+</ResponseField>
+
+<ResponseField name="icon" type="string | null">
+  An emoji or icon identifier representing the collection.
+</ResponseField>
+
+<ResponseField name="visibility" type="string">
+  Access control for the collection: `public`, `private`, or `password`.
+</ResponseField>
+
+<ResponseField name="article_count" type="integer">
+  The number of articles directly inside this collection (does not include nested subcollections).
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+  ISO 8601 timestamp of when the collection was created.
+</ResponseField>
+
+<ResponseField name="updated_at" type="string">
+  ISO 8601 timestamp of the most recent update.
+</ResponseField>
+
+---
+
+## GET /collections
+
+List all top-level and nested collections in the workspace. Use `parent_id` to retrieve subcollections of a specific parent.
+
+```bash
+GET https://api.knowledgebase.io/v1/collections
+```
+
+**Query Parameters**
+
+<ParamField query="parent_id" type="string">
+  Return only subcollections whose `parent_id` matches this value. Omit to return all top-level collections.
+</ParamField>
+
+<ParamField query="page" type="integer" default="1">
+  The page number to retrieve.
+</ParamField>
+
+<ParamField query="per_page" type="integer" default="20">
+  Number of collections per page. Maximum `100`.
+</ParamField>
+
+**Example Request**
+
+```bash
+curl "https://api.knowledgebase.io/v1/collections?per_page=3" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Example Response**
+
+```json
+{
+  "data": [
+    {
+      "id": "col_xyz789",
+      "name": "Getting Started",
+      "slug": "getting-started",
+      "description": "Everything you need to set up and start using Knowledgebase.",
+      "parent_id": null,
+      "icon": "🚀",
+      "visibility": "public",
+      "article_count": 8,
+      "created_at": "2024-04-10T12:00:00Z",
+      "updated_at": "2024-05-20T09:00:00Z"
+    },
+    {
+      "id": "col_abc001",
+      "name": "Account & Billing",
+      "slug": "account-and-billing",
+      "description": "Manage your subscription, invoices, and payment methods.",
+      "parent_id": null,
+      "icon": "💳",
+      "visibility": "public",
+      "article_count": 5,
+      "created_at": "2024-04-10T12:05:00Z",
+      "updated_at": "2024-05-18T10:30:00Z"
+    },
+    {
+      "id": "col_int002",
+      "name": "Integrations",
+      "slug": "integrations",
+      "description": "Connect Knowledgebase with your existing tools.",
+      "parent_id": null,
+      "icon": "🔗",
+      "visibility": "public",
+      "article_count": 12,
+      "created_at": "2024-04-11T08:00:00Z",
+      "updated_at": "2024-06-01T15:00:00Z"
+    }
+  ],
+  "meta": {
+    "page": 1,
+    "per_page": 3,
+    "total": 7,
+    "request_id": "req_col_list_001"
+  }
+}
+```
+
+---
+
+## POST /collections
+
+Create a new collection. To create a nested subcollection, include a `parent_id` pointing to an existing collection.
+
+```bash
+POST https://api.knowledgebase.io/v1/collections
+```
+
+**Body Parameters**
+
+<ParamField body="name" type="string" required>
+  The name of the collection. Must be between 1 and 100 characters.
+</ParamField>
+
+<ParamField body="description" type="string">
+  A short description displayed on the collection's landing page. Maximum 500 characters.
+</ParamField>
+
+<ParamField body="parent_id" type="string">
+  The ID of a parent collection. If provided, this collection becomes a nested subcollection.
+</ParamField>
+
+<ParamField body="icon" type="string">
+  An emoji or icon string to visually identify the collection (e.g. `"📘"`).
+</ParamField>
+
+<ParamField body="visibility" type="string" default="public">
+  Access control: `public` (visible to all), `private` (team members only), or `password` (requires a password to access).
+</ParamField>
+
+**Example Request**
+
+```bash
+curl -X POST https://api.knowledgebase.io/v1/collections \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Advanced Configuration",
+    "description": "Deep-dive guides for power users and developers.",
+    "parent_id": "col_xyz789",
+    "icon": "⚙️",
+    "visibility": "public"
+  }'
+```
+
+**Example Response** — `201 Created`
+
+```json
+{
+  "data": {
+    "id": "col_adv999",
+    "name": "Advanced Configuration",
+    "slug": "advanced-configuration",
+    "description": "Deep-dive guides for power users and developers.",
+    "parent_id": "col_xyz789",
+    "icon": "⚙️",
+    "visibility": "public",
+    "article_count": 0,
+    "created_at": "2024-06-05T11:00:00Z",
+    "updated_at": "2024-06-05T11:00:00Z"
+  },
+  "meta": {
+    "request_id": "req_col_create_002"
+  }
+}
+```
+
+---
+
+## GET /collections/{id}
+
+Retrieve a single collection by its ID.
+
+```bash
+GET https://api.knowledgebase.io/v1/collections/{id}
+```
+
+**Path Parameters**
+
+<ParamField path="id" type="string" required>
+  The unique ID of the collection (e.g. `col_xyz789`).
+</ParamField>
+
+**Example Request**
+
+```bash
+curl https://api.knowledgebase.io/v1/collections/col_xyz789 \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Example Response**
+
+```json
+{
+  "data": {
+    "id": "col_xyz789",
+    "name": "Getting Started",
+    "slug": "getting-started",
+    "description": "Everything you need to set up and start using Knowledgebase.",
+    "parent_id": null,
+    "icon": "🚀",
+    "visibility": "public",
+    "article_count": 8,
+    "created_at": "2024-04-10T12:00:00Z",
+    "updated_at": "2024-05-20T09:00:00Z"
+  },
+  "meta": {
+    "request_id": "req_col_get_003"
+  }
+}
+```
+
+---
+
+## PUT /collections/{id}
+
+Update an existing collection. All body parameters are optional.
+
+```bash
+PUT https://api.knowledgebase.io/v1/collections/{id}
+```
+
+**Path Parameters**
+
+<ParamField path="id" type="string" required>
+  The unique ID of the collection to update.
+</ParamField>
+
+**Body Parameters**
+
+<ParamField body="name" type="string">
+  Updated collection name.
+</ParamField>
+
+<ParamField body="description" type="string">
+  Updated description.
+</ParamField>
+
+<ParamField body="parent_id" type="string">
+  Move this collection under a new parent. Set to `null` to promote it to a top-level collection.
+</ParamField>
+
+<ParamField body="icon" type="string">
+  Updated icon or emoji.
+</ParamField>
+
+<ParamField body="visibility" type="string">
+  Updated visibility setting: `public`, `private`, or `password`.
+</ParamField>
+
+**Example Request**
+
+```bash
+curl -X PUT https://api.knowledgebase.io/v1/collections/col_xyz789 \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Getting Started Guide",
+    "icon": "🌟",
+    "visibility": "public"
+  }'
+```
+
+**Example Response**
+
+```json
+{
+  "data": {
+    "id": "col_xyz789",
+    "name": "Getting Started Guide",
+    "slug": "getting-started-guide",
+    "description": "Everything you need to set up and start using Knowledgebase.",
+    "parent_id": null,
+    "icon": "🌟",
+    "visibility": "public",
+    "article_count": 8,
+    "created_at": "2024-04-10T12:00:00Z",
+    "updated_at": "2024-06-06T08:45:00Z"
+  },
+  "meta": {
+    "request_id": "req_col_update_004"
+  }
+}
+```
+
+---
+
+## DELETE /collections/{id}
+
+Delete a collection. The collection must be empty — it cannot contain any articles or subcollections at the time of deletion. Move or delete any existing articles first.
+
+```bash
+DELETE https://api.knowledgebase.io/v1/collections/{id}
+```
+
+**Path Parameters**
+
+<ParamField path="id" type="string" required>
+  The unique ID of the collection to delete.
+</ParamField>
+
+**Example Request**
+
+```bash
+curl -X DELETE https://api.knowledgebase.io/v1/collections/col_adv999 \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Response** — `204 No Content`
+
+A successful delete returns a `204` status with no response body.
+
+<Warning>
+  You must remove all articles and subcollections from a collection before deleting it. Attempting to delete a non-empty collection returns a `422 Unprocessable Entity` error with the code `collection_not_empty`.
+</Warning>

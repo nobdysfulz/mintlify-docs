@@ -1,0 +1,252 @@
+---
+title: "REST API Endpoints for Users and Members"
+sidebarTitle: "Users"
+description: "List, invite, and manage workspace members via the Knowledgebase API. Requires Admin role API key to create or modify users."
+---
+
+The Users API lets you manage the members of your Knowledgebase workspace. You can list all current members, invite new ones by email, retrieve individual user profiles, and remove members who no longer need access. User management is tightly controlled by role: most write operations require an Admin API key to ensure that only authorized users can modify workspace membership.
+
+<Note>
+  The `POST /users` (invite), and `DELETE /users/{id}` (remove) endpoints require an **Admin** API key. Requests made with an Editor or Viewer key will receive a `403 Forbidden` response. The `GET /users` and `GET /users/{id}` endpoints are accessible to Editor keys but not to Viewer keys.
+</Note>
+
+---
+
+## The User Object
+
+<ResponseField name="id" type="string">
+  Unique identifier for the user, prefixed with `usr_`.
+</ResponseField>
+
+<ResponseField name="email" type="string">
+  The user's email address.
+</ResponseField>
+
+<ResponseField name="name" type="string | null">
+  The user's display name. `null` if the user has not set one yet.
+</ResponseField>
+
+<ResponseField name="role" type="string">
+  The user's workspace role: `admin`, `editor`, or `viewer`.
+</ResponseField>
+
+<ResponseField name="avatar_url" type="string | null">
+  URL of the user's profile avatar image, or `null` if no avatar is set.
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+  ISO 8601 timestamp of when the user was added to the workspace.
+</ResponseField>
+
+<ResponseField name="last_active_at" type="string | null">
+  ISO 8601 timestamp of the user's most recent activity. `null` if the user has never logged in.
+</ResponseField>
+
+---
+
+## GET /users
+
+List all members in the workspace. Supports filtering by role and standard pagination.
+
+```bash
+GET https://api.knowledgebase.io/v1/users
+```
+
+**Query Parameters**
+
+<ParamField query="role" type="string">
+  Filter members by role. One of `admin`, `editor`, or `viewer`. Omit to return all roles.
+</ParamField>
+
+<ParamField query="page" type="integer" default="1">
+  The page number to retrieve.
+</ParamField>
+
+<ParamField query="per_page" type="integer" default="20">
+  Number of users per page. Maximum `100`.
+</ParamField>
+
+**Example Request**
+
+```bash
+curl "https://api.knowledgebase.io/v1/users?role=editor&per_page=3" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Example Response**
+
+```json
+{
+  "data": [
+    {
+      "id": "usr_111aaa",
+      "email": "alice@example.com",
+      "name": "Alice Nguyen",
+      "role": "editor",
+      "avatar_url": "https://assets.knowledgebase.io/avatars/usr_111aaa.jpg",
+      "created_at": "2024-01-15T09:00:00Z",
+      "last_active_at": "2024-06-05T17:42:00Z"
+    },
+    {
+      "id": "usr_222bbb",
+      "email": "ben@example.com",
+      "name": "Ben Carter",
+      "role": "editor",
+      "avatar_url": null,
+      "created_at": "2024-02-20T11:30:00Z",
+      "last_active_at": "2024-06-04T10:15:00Z"
+    },
+    {
+      "id": "usr_333ccc",
+      "email": "carmen@example.com",
+      "name": null,
+      "role": "editor",
+      "avatar_url": null,
+      "created_at": "2024-06-01T08:00:00Z",
+      "last_active_at": null
+    }
+  ],
+  "meta": {
+    "page": 1,
+    "per_page": 3,
+    "total": 9,
+    "request_id": "req_usr_list_001"
+  }
+}
+```
+
+---
+
+## POST /users
+
+Invite a new member to the workspace by email. Knowledgebase sends the invitee an email with a link to accept the invitation and set up their account. The user object is created immediately and the `last_active_at` field will be `null` until they log in.
+
+```bash
+POST https://api.knowledgebase.io/v1/users
+```
+
+**Body Parameters**
+
+<ParamField body="email" type="string" required>
+  The email address of the person to invite. Must be a valid email address and not already a member of the workspace.
+</ParamField>
+
+<ParamField body="role" type="string" required>
+  The role to assign to the new member. One of `admin`, `editor`, or `viewer`.
+</ParamField>
+
+**Example Request**
+
+```bash
+curl -X POST https://api.knowledgebase.io/v1/users \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "diana@example.com",
+    "role": "editor"
+  }'
+```
+
+**Example Response** — `201 Created`
+
+```json
+{
+  "data": {
+    "id": "usr_444ddd",
+    "email": "diana@example.com",
+    "name": null,
+    "role": "editor",
+    "avatar_url": null,
+    "created_at": "2024-06-06T12:00:00Z",
+    "last_active_at": null
+  },
+  "meta": {
+    "request_id": "req_usr_invite_002"
+  }
+}
+```
+
+If the email address belongs to an existing workspace member, the API returns a `422 Unprocessable Entity` response:
+
+```json
+{
+  "error": {
+    "code": "user_already_exists",
+    "message": "A user with this email address is already a member of the workspace.",
+    "status": 422
+  }
+}
+```
+
+---
+
+## GET /users/{id}
+
+Retrieve a single workspace member by their user ID.
+
+```bash
+GET https://api.knowledgebase.io/v1/users/{id}
+```
+
+**Path Parameters**
+
+<ParamField path="id" type="string" required>
+  The unique ID of the user (e.g. `usr_111aaa`).
+</ParamField>
+
+**Example Request**
+
+```bash
+curl https://api.knowledgebase.io/v1/users/usr_111aaa \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Example Response**
+
+```json
+{
+  "data": {
+    "id": "usr_111aaa",
+    "email": "alice@example.com",
+    "name": "Alice Nguyen",
+    "role": "editor",
+    "avatar_url": "https://assets.knowledgebase.io/avatars/usr_111aaa.jpg",
+    "created_at": "2024-01-15T09:00:00Z",
+    "last_active_at": "2024-06-05T17:42:00Z"
+  },
+  "meta": {
+    "request_id": "req_usr_get_003"
+  }
+}
+```
+
+---
+
+## DELETE /users/{id}
+
+Remove a member from the workspace. This action revokes the user's access immediately. Any articles or content they authored remain in the workspace and are not deleted.
+
+```bash
+DELETE https://api.knowledgebase.io/v1/users/{id}
+```
+
+**Path Parameters**
+
+<ParamField path="id" type="string" required>
+  The unique ID of the user to remove.
+</ParamField>
+
+**Example Request**
+
+```bash
+curl -X DELETE https://api.knowledgebase.io/v1/users/usr_333ccc \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Response** — `204 No Content`
+
+A successful removal returns a `204` status with no response body.
+
+<Warning>
+  You cannot remove the last Admin from a workspace. Doing so returns a `422 Unprocessable Entity` error with the code `last_admin_removal`. Promote another member to Admin before removing the current one.
+</Warning>

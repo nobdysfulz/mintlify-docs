@@ -1,13 +1,11 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
-  "name": "Knowledgebase",
+  "projectType": "saas",
+  "projectName": "Knowledgebase",
+  "projectDescription": "A SaaS platform for creating, organizing, and sharing knowledge articles with your team and customers.",
   "theme": "almond",
-  "colors": {
-    "primary": "#ef7025",
-    "light": "#eec9bc",
-    "dark": "#4fa1ab"
-  },
-  "favicon": "/favicon.svg",
+  "primaryColor": "#ef7025",
+  "lightColor": "#eec9bc",
+  "darkColor": "#4fa1ab",
   "navigation": {
     "tabs": [
       {
@@ -81,11 +79,29 @@
       }
     ]
   },
-  "navbar": {
-    "primary": {
-      "type": "button",
-      "label": "Get Started",
-      "href": "/quickstart"
-    }
-  }
+  "keyFeatures": [
+    "Rich-text and Markdown article editor",
+    "Hierarchical collections and categories",
+    "Role-based access control for teams",
+    "Public and private knowledge bases",
+    "Full-text search across all articles",
+    "Custom branding and domain support",
+    "REST API for programmatic access",
+    "Integrations with Slack, Zapier, and more",
+    "Analytics and article-view tracking",
+    "Multi-workspace support"
+  ],
+  "publicApiSurface": [
+    "GET /articles",
+    "POST /articles",
+    "GET /articles/{id}",
+    "PUT /articles/{id}",
+    "DELETE /articles/{id}",
+    "GET /collections",
+    "POST /collections",
+    "GET /collections/{id}",
+    "GET /users",
+    "POST /users",
+    "GET /search?q={query}"
+  ]
 }

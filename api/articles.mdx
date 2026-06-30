@@ -1,0 +1,376 @@
+---
+title: "REST API Endpoints for Articles"
+sidebarTitle: "Articles"
+description: "Create, read, update, and delete articles via the Knowledgebase API. Includes request parameters, response fields, and code examples."
+---
+
+Articles are the core content unit in Knowledgebase. Each article belongs to a collection, carries a status (`draft`, `published`, or `archived`), and can include tags for filtering and SEO metadata for search engine visibility. The Articles API gives you full CRUD control so you can automate content publishing, sync articles from external sources, and build custom editorial workflows.
+
+---
+
+## The Article Object
+
+Every endpoint that returns an article uses the following shape:
+
+<ResponseField name="id" type="string">
+  Unique identifier for the article, prefixed with `art_`.
+</ResponseField>
+
+<ResponseField name="title" type="string">
+  The article's display title.
+</ResponseField>
+
+<ResponseField name="slug" type="string">
+  URL-safe slug derived from the title, unique within the workspace.
+</ResponseField>
+
+<ResponseField name="body" type="string">
+  The article content as an HTML or Markdown string, depending on the format used when the article was created.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Publication status: `draft`, `published`, or `archived`.
+</ResponseField>
+
+<ResponseField name="collection_id" type="string">
+  The ID of the collection this article belongs to.
+</ResponseField>
+
+<ResponseField name="tags" type="array">
+  List of tag strings associated with the article.
+</ResponseField>
+
+<ResponseField name="author_id" type="string">
+  The ID of the user who created the article.
+</ResponseField>
+
+<ResponseField name="seo_description" type="string">
+  Meta description used for search engine indexing. Kept under 160 characters.
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+  ISO 8601 timestamp of when the article was created.
+</ResponseField>
+
+<ResponseField name="updated_at" type="string">
+  ISO 8601 timestamp of the most recent update.
+</ResponseField>
+
+<ResponseField name="published_at" type="string | null">
+  ISO 8601 timestamp of when the article was published. `null` if not yet published.
+</ResponseField>
+
+---
+
+## GET /articles
+
+List all articles in the workspace. Results are paginated and can be filtered by status, collection, or tag.
+
+```bash
+GET https://api.knowledgebase.io/v1/articles
+```
+
+**Query Parameters**
+
+<ParamField query="status" type="string">
+  Filter by publication status. One of `draft`, `published`, or `archived`. Omit to return all statuses.
+</ParamField>
+
+<ParamField query="collection_id" type="string">
+  Return only articles belonging to the specified collection.
+</ParamField>
+
+<ParamField query="tag" type="string">
+  Return only articles that include this tag.
+</ParamField>
+
+<ParamField query="page" type="integer" default="1">
+  The page number to retrieve. Starts at `1`.
+</ParamField>
+
+<ParamField query="per_page" type="integer" default="20">
+  Number of articles per page. Maximum `100`.
+</ParamField>
+
+**Example Request**
+
+```bash
+curl "https://api.knowledgebase.io/v1/articles?status=published&per_page=2" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Example Response**
+
+```json
+{
+  "data": [
+    {
+      "id": "art_abc123",
+      "title": "Getting Started with Knowledgebase",
+      "slug": "getting-started-with-knowledgebase",
+      "body": "<p>Welcome to Knowledgebase...</p>",
+      "status": "published",
+      "collection_id": "col_xyz789",
+      "tags": ["onboarding", "quickstart"],
+      "author_id": "usr_111aaa",
+      "seo_description": "A step-by-step guide to setting up your Knowledgebase workspace.",
+      "created_at": "2024-05-01T10:00:00Z",
+      "updated_at": "2024-05-15T14:22:00Z",
+      "published_at": "2024-05-15T14:22:00Z"
+    },
+    {
+      "id": "art_def456",
+      "title": "Managing Team Permissions",
+      "slug": "managing-team-permissions",
+      "body": "<p>Learn how to assign roles...</p>",
+      "status": "published",
+      "collection_id": "col_xyz789",
+      "tags": ["permissions", "admin"],
+      "author_id": "usr_222bbb",
+      "seo_description": "How to configure roles and access for your team in Knowledgebase.",
+      "created_at": "2024-05-03T09:00:00Z",
+      "updated_at": "2024-05-10T11:30:00Z",
+      "published_at": "2024-05-10T11:30:00Z"
+    }
+  ],
+  "meta": {
+    "page": 1,
+    "per_page": 2,
+    "total": 48,
+    "request_id": "req_list_001"
+  }
+}
+```
+
+---
+
+## POST /articles
+
+Create a new article in the workspace. The article is created as a `draft` by default unless you specify `"status": "published"`.
+
+```bash
+POST https://api.knowledgebase.io/v1/articles
+```
+
+**Body Parameters**
+
+<ParamField body="title" type="string" required>
+  The title of the article. Must be between 1 and 255 characters.
+</ParamField>
+
+<ParamField body="body" type="string" required>
+  The article content. Accepts HTML or Markdown. Maximum 500 KB.
+</ParamField>
+
+<ParamField body="collection_id" type="string">
+  The ID of the collection to assign the article to. If omitted, the article is placed in the workspace's default collection.
+</ParamField>
+
+<ParamField body="tags" type="array">
+  An array of tag strings to associate with the article.
+</ParamField>
+
+<ParamField body="status" type="string" default="draft">
+  Initial publication status. One of `draft` or `published`.
+</ParamField>
+
+<ParamField body="seo_description" type="string">
+  Meta description for search engines. Recommended length is 120–160 characters.
+</ParamField>
+
+**Example Request**
+
+```bash
+curl -X POST https://api.knowledgebase.io/v1/articles \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "How to Use the API",
+    "body": "<h2>Introduction</h2><p>The Knowledgebase API lets you automate content management...</p>",
+    "collection_id": "col_xyz789",
+    "tags": ["api", "developer"],
+    "status": "published",
+    "seo_description": "Learn how to use the Knowledgebase REST API to automate your content workflow."
+  }'
+```
+
+**Example Response** — `201 Created`
+
+```json
+{
+  "data": {
+    "id": "art_ghi789",
+    "title": "How to Use the API",
+    "slug": "how-to-use-the-api",
+    "body": "<h2>Introduction</h2><p>The Knowledgebase API lets you automate content management...</p>",
+    "status": "published",
+    "collection_id": "col_xyz789",
+    "tags": ["api", "developer"],
+    "author_id": "usr_111aaa",
+    "seo_description": "Learn how to use the Knowledgebase REST API to automate your content workflow.",
+    "created_at": "2024-06-01T08:00:00Z",
+    "updated_at": "2024-06-01T08:00:00Z",
+    "published_at": "2024-06-01T08:00:00Z"
+  },
+  "meta": {
+    "request_id": "req_create_002"
+  }
+}
+```
+
+---
+
+## GET /articles/{id}
+
+Retrieve a single article by its ID.
+
+```bash
+GET https://api.knowledgebase.io/v1/articles/{id}
+```
+
+**Path Parameters**
+
+<ParamField path="id" type="string" required>
+  The unique ID of the article (e.g. `art_abc123`).
+</ParamField>
+
+**Example Request**
+
+```bash
+curl https://api.knowledgebase.io/v1/articles/art_abc123 \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Example Response**
+
+```json
+{
+  "data": {
+    "id": "art_abc123",
+    "title": "Getting Started with Knowledgebase",
+    "slug": "getting-started-with-knowledgebase",
+    "body": "<p>Welcome to Knowledgebase. This guide walks you through setting up your first workspace...</p>",
+    "status": "published",
+    "collection_id": "col_xyz789",
+    "tags": ["onboarding", "quickstart"],
+    "author_id": "usr_111aaa",
+    "seo_description": "A step-by-step guide to setting up your Knowledgebase workspace.",
+    "created_at": "2024-05-01T10:00:00Z",
+    "updated_at": "2024-05-15T14:22:00Z",
+    "published_at": "2024-05-15T14:22:00Z"
+  },
+  "meta": {
+    "request_id": "req_get_003"
+  }
+}
+```
+
+---
+
+## PUT /articles/{id}
+
+Update an existing article. All body parameters are optional — include only the fields you want to change. The `updated_at` timestamp is automatically set to the current time.
+
+```bash
+PUT https://api.knowledgebase.io/v1/articles/{id}
+```
+
+**Path Parameters**
+
+<ParamField path="id" type="string" required>
+  The unique ID of the article to update.
+</ParamField>
+
+**Body Parameters**
+
+<ParamField body="title" type="string">
+  Updated article title.
+</ParamField>
+
+<ParamField body="body" type="string">
+  Updated article content (HTML or Markdown).
+</ParamField>
+
+<ParamField body="collection_id" type="string">
+  Move the article to a different collection.
+</ParamField>
+
+<ParamField body="tags" type="array">
+  Replace the article's tags with this new array.
+</ParamField>
+
+<ParamField body="status" type="string">
+  Change the publication status. One of `draft`, `published`, or `archived`.
+</ParamField>
+
+<ParamField body="seo_description" type="string">
+  Updated meta description for search engines.
+</ParamField>
+
+**Example Request**
+
+```bash
+curl -X PUT https://api.knowledgebase.io/v1/articles/art_abc123 \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Getting Started with Knowledgebase (Updated)",
+    "status": "published",
+    "tags": ["onboarding", "quickstart", "setup"]
+  }'
+```
+
+**Example Response**
+
+```json
+{
+  "data": {
+    "id": "art_abc123",
+    "title": "Getting Started with Knowledgebase (Updated)",
+    "slug": "getting-started-with-knowledgebase",
+    "body": "<p>Welcome to Knowledgebase. This guide walks you through setting up your first workspace...</p>",
+    "status": "published",
+    "collection_id": "col_xyz789",
+    "tags": ["onboarding", "quickstart", "setup"],
+    "author_id": "usr_111aaa",
+    "seo_description": "A step-by-step guide to setting up your Knowledgebase workspace.",
+    "created_at": "2024-05-01T10:00:00Z",
+    "updated_at": "2024-06-02T09:15:00Z",
+    "published_at": "2024-05-15T14:22:00Z"
+  },
+  "meta": {
+    "request_id": "req_update_004"
+  }
+}
+```
+
+---
+
+## DELETE /articles/{id}
+
+Permanently delete an article. This action cannot be undone. Archived articles cannot be deleted — you must change their status to `draft` or `published` before deleting.
+
+```bash
+DELETE https://api.knowledgebase.io/v1/articles/{id}
+```
+
+**Path Parameters**
+
+<ParamField path="id" type="string" required>
+  The unique ID of the article to delete.
+</ParamField>
+
+**Example Request**
+
+```bash
+curl -X DELETE https://api.knowledgebase.io/v1/articles/art_abc123 \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Response** — `204 No Content`
+
+A successful delete returns a `204` status with no response body.
+
+<Warning>
+  Deleting an article is **permanent and irreversible**. Consider changing the article's status to `archived` instead if you want to hide it without losing the content.
+</Warning>

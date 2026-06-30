@@ -1,0 +1,80 @@
+---
+title: "How Search Works in Your Knowledge Base"
+sidebarTitle: "Search"
+description: "Knowledgebase provides instant full-text search across all published articles. Learn how to optimize your content for search results."
+---
+
+Search is often the first thing a customer reaches for when they have a question. Knowledgebase builds full-text search directly into every help center — no third-party integrations, no configuration required. Understanding how search indexes and ranks your content helps you write articles that surface at the right moment, reducing friction for your readers.
+
+---
+
+## Customer-facing search
+
+Every Knowledgebase help center displays a **search bar** prominently on the homepage and in the header on all article pages. As a customer types, results appear instantly — there is no need to press Enter or click a search button.
+
+Results are sorted by relevance and update in real time with each keystroke. Each result card shows the article title, a snippet of matching body text, and the collection it belongs to, so customers can quickly judge whether an article is relevant before clicking through.
+
+**Keyboard shortcut:** Customers can open the search bar from anywhere in the help center by pressing **/** (forward slash) on their keyboard. This is especially useful for readers who prefer navigating without a mouse.
+
+---
+
+## What gets indexed
+
+Knowledgebase indexes the following fields for every published article:
+
+<CardGroup cols={2}>
+  <Card title="Article Title" icon="heading">
+    The full article title. Title matches carry the highest relevance weight, so a query that matches the title ranks above body-only matches.
+  </Card>
+  <Card title="Article Body" icon="align-left">
+    The complete body text of the article, including text inside lists, headings, blockquotes, and table cells. Code block content is also indexed.
+  </Card>
+  <Card title="Tags" icon="tag">
+    All tags attached to an article. A search for a tag keyword returns articles tagged with that term even if the word does not appear in the title or body.
+  </Card>
+  <Card title="Collection Name" icon="folder">
+    The name of the collection the article belongs to. Customers searching for a broad topic (e.g., "billing") can surface all articles in a *Billing* collection.
+  </Card>
+</CardGroup>
+
+Only **published** articles are indexed. Drafts, archived articles, and articles in private or password-protected collections are excluded from customer-facing search results.
+
+---
+
+## Improving search relevance
+
+The quality of your search results depends largely on the quality of your content. Here are the most effective ways to improve relevance:
+
+**Write clear, specific titles.** The article title is the most heavily weighted field. Titles like *How to Reset Your Password* or *Connect Your Slack Integration* surface far more reliably than vague titles like *Account Help* or *Setup Guide*.
+
+**Use tags strategically.** Tags let you associate synonyms and related terms with an article. If customers might search for both *invoice* and *receipt*, add both as tags to your billing articles so either query returns the right result.
+
+**Write meaningful SEO descriptions.** The SEO description you add in the Article Settings panel is not indexed for search ranking, but it appears as the result snippet in search engines like Google. A clear, accurate description improves click-through rates from external search.
+
+**Keep collection names descriptive.** A collection named *Getting Started* will surface in results for queries like "how do I start" or "beginners guide" because the indexed collection name adds signal alongside the article content.
+
+---
+
+## Search analytics
+
+Knowledgebase tracks every search query your customers submit and presents the data in your dashboard under **Analytics → Search**.
+
+From the Search Analytics panel you can view:
+
+- **Top queries** — the most frequently searched terms over a selected date range, ranked by volume.
+- **Zero-result searches** — queries that returned no results, sorted by frequency.
+- **Click-through rate** — the percentage of searches that led to a customer clicking an article.
+
+<Tip>
+  Your **zero-result searches** list is one of the most actionable reports in your dashboard. Every query on that list represents a customer who came to your help center looking for help and left empty-handed. Review this list weekly and use it as a direct backlog of articles to write — you already know the exact language your customers use.
+</Tip>
+
+---
+
+## API search
+
+If you want to integrate Knowledgebase search into your own application — for example, embedding a search widget inside your product's UI — you can query the Search API directly.
+
+The API returns structured JSON results matching the same relevance algorithm as the customer-facing search bar. You can filter results by collection, limit the number of results, and paginate through large result sets.
+
+See the [Search API reference](/api/search) for full endpoint documentation, authentication details, and code examples.

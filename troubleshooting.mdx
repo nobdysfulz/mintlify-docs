@@ -1,0 +1,130 @@
+---
+title: "Troubleshoot Common Knowledgebase Issues"
+sidebarTitle: "Troubleshooting"
+description: "Fix the most common issues in Knowledgebase: custom domain errors, search not working, image upload failures, and account access problems."
+---
+
+Most issues in Knowledgebase have a straightforward fix. This guide walks you through the most common problems our customers encounter — organized by area — along with step-by-step solutions you can try right away. Work through the relevant section below, and if you're still stuck after following the steps, don't hesitate to reach out to our support team.
+
+## Custom Domain Issues
+
+Setting up a custom domain involves DNS changes that can sometimes take time to propagate or require a small correction. Here are the most common issues and how to resolve them.
+
+<Accordion title="Domain not resolving">
+  If your custom domain shows a "site not found" or similar error after you've set it up, the most likely cause is that your DNS changes haven't fully propagated yet or the CNAME record is misconfigured.
+
+  **Steps to resolve:**
+  1. Confirm that your CNAME record points to exactly `hosting.knowledgebase.io`. Log in to your DNS provider and double-check the record value — even a small typo will prevent resolution.
+  2. DNS propagation can take anywhere from a few minutes to 48 hours. Use a tool like [dnschecker.org](https://dnschecker.org) to check whether your CNAME record has propagated globally.
+  3. In Knowledgebase, go to **Workspace Settings → Custom Domain** and click **Verify**. If verification fails, it will tell you what's missing.
+  4. If you recently changed your DNS provider, old records may be cached. Wait a full 48 hours before contacting support.
+</Accordion>
+
+<Accordion title="SSL certificate pending">
+  After your domain resolves correctly, Knowledgebase provisions an SSL certificate automatically. This usually takes under 10 minutes, but can occasionally take longer.
+
+  **Steps to resolve:**
+  1. Wait at least 15 minutes after your domain starts resolving before troubleshooting the SSL certificate.
+  2. Make sure there are no **CAA DNS records** on your domain that prevent certificate authorities from issuing certificates. If your domain has a CAA record, add an entry for `letsencrypt.org` to allow certificate issuance.
+  3. Refresh the **Workspace Settings → Custom Domain** page in Knowledgebase to see the current certificate status.
+  4. If the certificate is still listed as "Pending" after 2 hours, contact support with your domain name and workspace ID.
+</Accordion>
+
+<Accordion title="CNAME record verification failing">
+  Knowledgebase's verification tool checks that your CNAME record is correctly configured. If verification keeps failing even after you've added the record, try the following:
+
+  **Steps to resolve:**
+  1. Make sure you added a **CNAME** record, not an A record or TXT record. The record type must be CNAME.
+  2. The **Name** (or Host) field of the record should be your subdomain only — for example, `help` — not the full domain like `help.yourcompany.com`. Some DNS providers append the root domain automatically; check your provider's documentation.
+  3. The **Value** (or Points to) field must be `hosting.knowledgebase.io` with no trailing characters.
+  4. Clear any previously cached DNS lookups by flushing your local DNS cache, then retry verification.
+</Accordion>
+
+## Search Issues
+
+If articles aren't appearing in your help center's search results, or results seem stale, the steps below will usually resolve it.
+
+<Accordion title="Articles not appearing in search">
+  If a published article doesn't show up in search results, the search index may not have updated yet or the article may not meet the conditions for indexing.
+
+  **Steps to resolve:**
+  1. Confirm the article is actually **published** and not saved as a draft. Open the article in the editor and check its status in the top-right corner.
+  2. Search indexing happens automatically after publishing but can take up to 5 minutes. Wait a few minutes and try your search again.
+  3. Check that the article isn't inside a **private collection** that's hidden from public view. Go to the collection settings and confirm its visibility.
+  4. Try searching for a unique word from the article's title to rule out a keyword mismatch.
+  5. If the article still doesn't appear after 15 minutes, go to **Workspace Settings → Search → Rebuild Index** to manually trigger a full re-index of your content.
+</Accordion>
+
+<Accordion title="Search results are outdated">
+  If search returns an old version of an article's title or content even after you've made updates, the search index may be serving stale data.
+
+  **Steps to resolve:**
+  1. After editing and saving a published article, allow up to 5 minutes for the search index to update.
+  2. If the stale content persists, go to **Workspace Settings → Search → Rebuild Index** and trigger a manual re-index. This forces Knowledgebase to re-crawl and re-index all published articles from scratch.
+  3. Clear your browser cache and try searching in a private/incognito window to rule out locally cached search results.
+</Accordion>
+
+## Editor Issues
+
+Problems in the article editor are usually related to browser compatibility or clipboard formatting. Try the steps below before contacting support.
+
+<Accordion title="Images not uploading">
+  If images fail to upload or appear broken after uploading, there are a few common causes.
+
+  **Steps to resolve:**
+  1. Check that your image file is in a supported format: **JPEG, PNG, GIF, or WebP**. SVG and TIFF files are not currently supported.
+  2. Confirm the file size is under **10 MB**. Files larger than this will be rejected by the uploader.
+  3. Try uploading from a different browser. The editor's image uploader works best in up-to-date versions of Chrome, Firefox, Safari, and Edge.
+  4. If you're on a corporate network or VPN, a firewall may be blocking the upload request to Knowledgebase's media storage servers. Try uploading on a different network connection.
+  5. Check your plan's media storage limit under **Workspace Settings → Usage**. If you've reached your storage limit, you'll need to delete unused media or upgrade your plan.
+</Accordion>
+
+<Accordion title="Formatting lost after paste">
+  When you paste content from another source — such as Google Docs, Notion, or a web page — some or all formatting may be stripped or rendered incorrectly.
+
+  **Steps to resolve:**
+  1. Use **Paste as plain text** to insert content without any formatting, then apply your own styles using the editor toolbar. On most systems this is `Ctrl+Shift+V` (Windows/Linux) or `Cmd+Shift+V` (Mac).
+  2. If you need to preserve structure from Google Docs, try copying a smaller section at a time rather than pasting an entire document.
+  3. Avoid pasting content that contains complex tables or nested lists from Word or other rich-text editors — the Knowledgebase editor supports Markdown-style tables and standard list nesting only.
+  4. If formatting issues persist in a specific browser, try switching to a different one. Some clipboard behaviors differ between browsers.
+</Accordion>
+
+## Access Issues
+
+If you or a team member can't log in or access the workspace, follow the steps below.
+
+<Accordion title="Can't log in">
+  If you're unable to log in to your Knowledgebase account, there are several things to check.
+
+  **Steps to resolve:**
+  1. Make sure you're using the correct email address. If you signed up with Google SSO, you must use the **Continue with Google** button rather than entering a password.
+  2. If you use email/password login, try resetting your password by clicking **Forgot password?** on the login page. Check your spam folder if the reset email doesn't arrive within a few minutes.
+  3. Clear your browser cookies and cache, or try logging in from a private/incognito window.
+  4. If your workspace uses Single Sign-On (SSO), contact your IT or identity provider admin to confirm your account is active and properly assigned.
+  5. If you're seeing an "account suspended" message, contact support at support@knowledgebase.io to resolve the issue.
+</Accordion>
+
+<Accordion title="Not receiving invitation email">
+  If someone invited you to a Knowledgebase workspace but you haven't received the email, try the following:
+
+  **Steps to resolve:**
+  1. Check your spam, junk, and promotions folders for an email from `noreply@knowledgebase.io`.
+  2. Ask the person who sent the invite to go to **Workspace Settings → Members**, find your pending invite, and click **Resend Invitation**.
+  3. Confirm that the invite was sent to the correct email address — a typo in the address is a common cause.
+  4. If your organization uses email filtering or an allowlist, ask your IT team to whitelist the `knowledgebase.io` domain so messages can get through.
+  5. Invitation links expire after **72 hours**. If yours has expired, ask the workspace admin to send a fresh invite.
+</Accordion>
+
+<Accordion title="Lost access to workspace">
+  If you previously had access to a workspace and can no longer see it after logging in, your access may have been changed or revoked.
+
+  **Steps to resolve:**
+  1. Make sure you're logged in with the correct email address — you may have multiple Knowledgebase accounts.
+  2. Contact another admin in your workspace and ask them to check your membership status under **Workspace Settings → Members**. You may have been accidentally removed.
+  3. If your workspace is on a plan that has since lapsed or been cancelled, access may be restricted until billing is updated. Ask your workspace owner to check the billing status.
+  4. If you were the only admin and have lost access, contact support at support@knowledgebase.io with your workspace URL and account email. We can help restore access after verifying your identity.
+</Accordion>
+
+<Note>
+  If you've worked through the relevant steps above and still can't resolve your issue, our support team is here to help. Reach out at **support@knowledgebase.io** and include your workspace URL, a description of the issue, and any error messages you're seeing — this helps us get you an answer as quickly as possible.
+</Note>

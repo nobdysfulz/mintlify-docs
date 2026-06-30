@@ -1,0 +1,94 @@
+---
+title: "Customize Your Help Center Branding and Layout"
+sidebarTitle: "Customization"
+description: "Personalize your Knowledgebase help center with your logo, brand colors, custom domain, and layout options to match your product."
+---
+
+Your help center is often the first place a customer goes when something goes wrong — and it should feel like a seamless extension of your product, not a generic third-party page. Knowledgebase gives you full control over your help center's visual identity, from logo and colors to layout, navigation, and custom CSS, so you can deliver a consistent brand experience without writing any code.
+
+---
+
+## Logo and favicon
+
+Upload your logo and favicon from **Settings → Branding** in your dashboard.
+
+- **Logo** — displayed in the top-left corner of your help center header. Upload a PNG, SVG, or WebP file. For best results, use a horizontal logo at least 200 px wide with a transparent background so it renders cleanly on both light and dark backgrounds.
+- **Favicon** — the small icon that appears in the browser tab. Upload a 32×32 or 64×64 PNG or ICO file. If you do not upload a favicon, Knowledgebase uses a default icon.
+
+Changes take effect immediately after saving — no redeployment required.
+
+---
+
+## Brand colors
+
+In **Settings → Branding → Colors**, use the color picker to set your **Primary Color**. This single color controls the visual accent throughout your help center, including:
+
+- Button backgrounds (e.g., the search button and CTA links)
+- Link hover states
+- Active states in the navigation menu
+- Highlighted text matches in search results
+- The progress indicator at the top of the page while articles load
+
+Enter a hex value directly (e.g., `#5B21B6`) or use the visual color picker to find the right shade. Choose a color with sufficient contrast against white backgrounds to keep your help center accessible.
+
+---
+
+## Homepage layout
+
+Customize your help center homepage from **Settings → Layout → Homepage**.
+
+<Accordion title="Hero section">
+  The hero is the banner at the top of your homepage containing the search bar. You can customize:
+  - **Headline text** — the large heading above the search bar (e.g., *How can we help you?*).
+  - **Subheadline text** — a supporting line beneath the headline.
+  - **Background color or image** — choose a solid color, a gradient, or upload a background image.
+  Toggle the hero off entirely if you prefer a more compact homepage that leads directly with your collections.
+</Accordion>
+
+<Accordion title="Featured collections">
+  Choose up to 6 collections to feature prominently on the homepage as large cards. Featured collections appear above the full collection grid. Drag them into your preferred order using the ⠿ handle.
+</Accordion>
+
+<Accordion title="Show/hide sections">
+  Use the toggle switches on the Layout page to show or hide individual homepage sections:
+  - **Hero section**
+  - **Featured collections**
+  - **Full collection grid**
+  - **Recently updated articles**
+  - **Contact support CTA** (links to an email address or external support URL you specify)
+</Accordion>
+
+---
+
+## Navigation and footer
+
+**Custom navigation links:** Go to **Settings → Navigation** to add links to your help center's top navigation bar. Each link has a **label** and a **URL** — you can point to internal help center pages or external URLs (e.g., your product app, status page, or community forum).
+
+**Footer text:** Add a custom footer message in **Settings → Footer**. This appears at the bottom of every help center page. Use it for copyright notices, disclaimers, or a short tagline.
+
+**Social links:** In the same Footer settings panel, add links to your social profiles (Twitter/X, LinkedIn, GitHub, etc.). Knowledgebase renders them as icon buttons in the footer automatically.
+
+---
+
+## Custom CSS
+
+For complete design control, add custom CSS in **Settings → Advanced → Custom CSS**. Styles you enter here are injected into every page of your help center and override the default theme.
+
+For example, to change the header background color and text color:
+
+```css
+.kb-header {
+  background-color: #1a1a2e;
+  color: #ffffff;
+}
+```
+
+You can target any element in your help center using the browser's developer tools to inspect class names. Common customization targets include `.kb-header`, `.kb-footer`, `.kb-article-body`, `.kb-search-input`, and `.kb-collection-card`.
+
+<Warning>
+  Custom CSS is applied on top of Knowledgebase's default styles, which may change between platform updates. After a Knowledgebase update, review your custom CSS to make sure selectors still match the intended elements. Breaking changes to the default theme are announced in the [Knowledgebase changelog](https://knowledgebase.io/changelog), but it is your responsibility to maintain any custom overrides you have added.
+</Warning>
+
+<Tip>
+  Want to serve your help center from your own domain (e.g., `help.yourcompany.com`) to complete the branded experience? See the [Custom domain setup guide](/guides/publishing#custom-domain-setup) for step-by-step DNS configuration instructions.
+</Tip>

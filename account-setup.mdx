@@ -1,0 +1,96 @@
+---
+title: "Set Up and Configure Your Knowledgebase Account"
+sidebarTitle: "Account Setup"
+description: "Configure your Knowledgebase account: add teammates, set your help center domain, and adjust workspace settings to fit your team."
+---
+
+Before your team can start writing and your customers can start reading, you need to configure a few key things: your account credentials, a workspace that represents your organization, the teammates who'll contribute content, and the settings that shape how your help center looks and behaves. This guide walks you through each step in order.
+
+<Steps>
+  <Step title="Sign up for an account">
+    Go to [app.knowledgebase.io/signup](https://app.knowledgebase.io/signup). You have two options:
+
+    **Email and password**
+    Enter your work email address, choose a strong password, and click **Create account**. You'll receive a verification email — click the link inside to activate your account before proceeding.
+
+    **Single Sign-On (SSO)**
+    Click **Continue with Google** or **Continue with Microsoft** to authenticate using your existing corporate identity. No separate password is required, and your account is activated immediately.
+
+    <Info>
+      If your company enforces SSO, your IT administrator may have already provisioned an account for you. Check your inbox for an invitation email before creating a new account.
+    </Info>
+  </Step>
+  <Step title="Create or join a workspace">
+    A workspace is the shared environment where your team writes, organizes, and publishes content. After signing in you'll be prompted to either create a new workspace or join an existing one.
+
+    **Creating a new workspace**
+
+    Fill in the following fields on the **New Workspace** screen:
+
+    | Field | Description |
+    |---|---|
+    | **Workspace name** | The display name shown to your team and in the help center header (e.g., "Acme Support"). |
+    | **Slug** | A URL-safe identifier that forms your default help center address: `app.knowledgebase.io/<slug>`. Choose carefully — slugs can be changed later but all existing links will redirect. |
+    | **Logo** | Upload a PNG or SVG (recommended: 256 × 256 px). Your logo appears in the workspace dashboard and the published help center. |
+
+    Click **Create workspace** when you're ready.
+
+    **Joining an existing workspace**
+
+    If a teammate has already set up a workspace for your organization, ask an Admin to send you an invitation. Open the invitation email and click **Accept invite** — you'll be added to the workspace automatically.
+  </Step>
+  <Step title="Invite teammates">
+    Collaborating on content is easier when everyone is in the workspace. To invite teammates:
+
+    1. Open **Workspace Settings** (gear icon, bottom-left corner of the dashboard).
+    2. Click **Members** in the left settings menu.
+    3. Click **Invite members**.
+    4. Enter one or more email addresses (comma-separated) in the **Email addresses** field.
+    5. Select a role for the invitees from the **Role** dropdown (see the table below).
+    6. Click **Send invites**.
+
+    Invitees receive an email with a link to join. Pending invitations appear in the **Members** list until accepted.
+
+    | Role | Permissions |
+    |---|---|
+    | **Admin** | Full access: manage workspace settings, billing, members, and all content. |
+    | **Editor** | Create, edit, and publish articles and collections. Cannot change workspace settings or manage billing. |
+    | **Viewer** | Read-only access to internal (non-public) articles. Cannot create or edit content. |
+
+    <Info>
+      For a full breakdown of what each role can and cannot do, see the [Roles & Permissions reference](/concepts/permissions).
+    </Info>
+  </Step>
+  <Step title="Configure workspace settings">
+    Fine-tune your workspace so the help center reflects your brand and works the way your team expects.
+
+    1. Open **Workspace Settings → General**.
+    2. Update each setting as needed (see the reference table below).
+    3. Click **Save changes** at the bottom of the page.
+
+    Head to **Workspace Settings → Branding** to upload a favicon, set accent colors, and customize the help center's header and footer links.
+
+    <Warning>
+      If you set a **Custom Domain**, you must add a CNAME record to your DNS provider before the domain will resolve correctly. In your DNS settings, create a CNAME record pointing your subdomain (e.g., `help.yourcompany.com`) to `hosting.knowledgebase.io`. DNS changes can take up to 48 hours to propagate. Knowledgebase will automatically provision an SSL certificate once the CNAME is verified — do not set up your own certificate.
+    </Warning>
+  </Step>
+</Steps>
+
+## Workspace Settings Reference
+
+Use the table below as a quick reference when filling out **Workspace Settings → General**.
+
+| Setting | Description | Example |
+|---|---|---|
+| **Name** | The public-facing display name of your workspace and help center. | `Acme Help Center` |
+| **Slug** | URL-safe identifier used in your default Knowledgebase domain. Changing this will break un-redirected bookmarks. | `acme` |
+| **Custom Domain** | A fully qualified domain name you own and want to map to your help center. Requires a CNAME DNS record. | `help.acme.com` |
+| **Logo** | PNG or SVG image displayed in the help center header and workspace dashboard. Recommended size: 256 × 256 px. | — |
+| **Default Language** | Sets the locale for the help center UI (navigation labels, search placeholder, etc.). Does not auto-translate article content. | `English (US)` |
+| **Timezone** | Controls how dates and timestamps are displayed throughout the workspace and in article metadata. | `America/New_York` |
+
+## Next Steps
+
+- **Write your first article** — Follow the [Quickstart guide](/quickstart) to create, organize, and publish content.
+- **Understand roles in depth** — Review the [Roles & Permissions reference](/concepts/permissions) for a complete list of role capabilities.
+- **Set up integrations** — Connect Knowledgebase to Slack, Intercom, or Zendesk in **Workspace Settings → Integrations**.

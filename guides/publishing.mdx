@@ -1,0 +1,92 @@
+---
+title: "Publish Your Help Center and Manage Visibility"
+sidebarTitle: "Publishing"
+description: "Control what your customers see by publishing articles, setting collection visibility, and going live with your public help center URL."
+---
+
+Knowledgebase keeps your content private until you explicitly make it public, giving you full control over what customers see and when. You can publish individual articles, open your entire help center to the public under a branded URL, or restrict access to specific collections — all without touching any code.
+
+---
+
+## Publishing an article
+
+Every article starts life as a **Draft**, visible only to workspace members. When you are ready for customers to see it, you have two options:
+
+**Publish immediately:** Open the article in the editor and click **Publish** in the top-right toolbar. The article status changes from *Draft* to *Published* and becomes visible in your help center at once.
+
+**Schedule for a future date:** Click the dropdown arrow next to the **Publish** button and select **Schedule**. Pick a date and time — Knowledgebase will automatically publish the article at that moment, even if you are not logged in.
+
+<Tip>
+  Use scheduled publishing to align article releases with product launches or announcements. Write the content in advance, schedule it for the exact moment your feature goes live, and let Knowledgebase handle the timing automatically.
+</Tip>
+
+---
+
+## Making your help center public
+
+By default, your help center is private — only workspace members can access it. To open it to the public:
+
+1. Go to **Settings → Workspace Settings** in your dashboard.
+2. Under the **Visibility** section, toggle **Help Center Visibility** to **Public**.
+3. Click **Save Changes**.
+
+Your help center is now accessible at your default URL:
+
+```
+https://yourworkspace.knowledgebase.io
+```
+
+Replace `yourworkspace` with the subdomain you configured when you created your workspace. You can update the subdomain at any time from the same **Workspace Settings** page.
+
+---
+
+## Custom domain setup
+
+To serve your help center from your own domain (e.g., `help.yourcompany.com`), follow these steps:
+
+<Steps>
+  <Step title="Enter your domain in Settings">
+    Go to **Settings → Workspace Settings → Custom Domain**. Type your desired domain (e.g., `help.yourcompany.com`) into the **Custom Domain** field and click **Save**.
+  </Step>
+  <Step title="Add a CNAME record with your DNS provider">
+    Log in to your domain registrar or DNS provider (e.g., Cloudflare, Route 53, Namecheap). Create a new **CNAME record** with the following values:
+
+    | Field | Value |
+    |---|---|
+    | **Type** | CNAME |
+    | **Name / Host** | `help` (or whatever subdomain you chose) |
+    | **Target / Points to** | `cname.knowledgebase.io` |
+    | **TTL** | 3600 (or Auto) |
+  </Step>
+  <Step title="Verify the domain">
+    Return to **Settings → Custom Domain** in your Knowledgebase dashboard and click **Verify Domain**. Knowledgebase checks your DNS records and, once the CNAME is detected, automatically provisions an SSL certificate and activates the custom domain.
+  </Step>
+</Steps>
+
+<Warning>
+  DNS changes can take up to **48 hours** to propagate fully across the internet, though they often resolve within a few minutes to a few hours. During propagation, some visitors may still be routed to your old URL. Do not remove your default `knowledgebase.io` subdomain until your custom domain has been verified and is serving traffic correctly.
+</Warning>
+
+---
+
+## Password-protecting collections
+
+You can restrict specific collections so that only visitors who know the password can view them — useful for beta documentation, internal runbooks, or partner-only content.
+
+To set a password on a collection:
+1. Open the collection from the **Collections** sidebar.
+2. Click **Collection Settings** (the ⚙️ gear icon).
+3. Under **Visibility**, select **Password Protected**.
+4. Enter and confirm a password, then click **Save**.
+
+Visitors who navigate to that collection in your help center will be prompted to enter the password before the articles are revealed. The password prompt does not affect the rest of your help center.
+
+---
+
+## Unpublishing and archiving
+
+**Unpublishing** an article reverts it to *Draft* status. It immediately disappears from your public help center but is preserved in your dashboard exactly as it was, ready to be edited and republished. Use unpublish when content is temporarily out of date and you plan to revise it.
+
+**Archiving** moves an article to your *Archive* and removes it from all collections, search results, and the public help center. Archived articles are not deleted — you can still find them by filtering the Articles list by *Archived* status and restore them at any time. Use archive for content that is permanently outdated but that you may want to reference later.
+
+To unpublish or archive an article, open it in the editor, click the **⋯ More** menu in the top-right corner, and select **Unpublish** or **Archive**.

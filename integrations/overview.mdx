@@ -1,0 +1,53 @@
+---
+title: "Integrations: Connect Knowledgebase to Your Stack"
+sidebarTitle: "Overview"
+description: "Knowledgebase integrates with Slack, Zapier, and more, so your team can surface knowledge where work already happens."
+---
+
+Knowledgebase is built to fit into your team's existing workflow, not the other way around. Instead of forcing people to visit a separate portal to find answers, integrations bring your knowledge directly into the tools your team already uses every day — whether that's Slack, a third-party automation platform, or a fully custom solution built on top of our API.
+
+<CardGroup cols={2}>
+  <Card title="Slack" icon="slack" href="/integrations/slack">
+    Search your help center and share articles directly from any Slack channel using the Knowledgebase Slack app.
+  </Card>
+  <Card title="Zapier" icon="bolt" href="/integrations/zapier">
+    Trigger automated workflows when articles are published, updated, or deleted, and connect to 5,000+ apps.
+  </Card>
+  <Card title="API" icon="code" href="/api/introduction">
+    Build your own integration using the Knowledgebase REST API. Full programmatic access to articles, collections, and more.
+  </Card>
+  <Card title="Webhooks" icon="webhook" href="/api/introduction">
+    Receive real-time HTTP callbacks whenever content changes in your workspace, so your systems stay in sync automatically.
+  </Card>
+</CardGroup>
+
+## Webhooks
+
+Webhooks let you react to events in Knowledgebase in real time. When something changes in your workspace — an article is published, edited, or removed — Knowledgebase sends an HTTP `POST` request to a URL you specify, so your other systems can stay in sync without polling.
+
+Knowledgebase fires webhooks for the following events:
+
+- **`article.published`** — triggered when an article is published for the first time or re-published after being unpublished.
+- **`article.updated`** — triggered when an already-published article is edited and saved.
+- **`article.deleted`** — triggered when an article is permanently deleted from your workspace.
+
+Every webhook request includes a JSON payload with details about the event. Here's an example payload for an `article.published` event:
+
+```json
+{
+  "event": "article.published",
+  "timestamp": "2024-06-01T10:30:00Z",
+  "data": {
+    "id": "art_abc123",
+    "title": "Getting Started Guide",
+    "url": "https://help.example.com/getting-started",
+    "collection_id": "col_xyz789"
+  }
+}
+```
+
+The `event` field tells you which event fired, `timestamp` gives you the UTC time the event occurred, and the `data` object contains the relevant article details including its unique ID, title, public URL, and the ID of the collection it belongs to.
+
+<Note>
+  To add or manage webhook endpoints, go to **Workspace Settings → Integrations → Webhooks** and enter your target URL. You can register multiple endpoints and Knowledgebase will deliver every event to all of them.
+</Note>
