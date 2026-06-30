@@ -1,91 +1,55 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
-  "name": "Knowledgebase",
-  "theme": "almond",
-  "colors": {
-    "primary": "#ef7025",
-    "light": "#eec9bc",
-    "dark": "#4fa1ab"
-  },
+  "name": "Voru Help Center",
   "favicon": "/favicon.svg",
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "Documentation",
-        "groups": [
-          {
-            "group": "Get Started",
-            "pages": [
-              "introduction",
-              "quickstart",
-              "account-setup"
-            ]
-          },
-          {
-            "group": "Core Concepts",
-            "pages": [
-              "concepts/articles",
-              "concepts/collections",
-              "concepts/workspaces",
-              "concepts/permissions"
-            ]
-          },
-          {
-            "group": "Guides",
-            "pages": [
-              "guides/creating-articles",
-              "guides/organizing-content",
-              "guides/publishing",
-              "guides/search",
-              "guides/customization"
-            ]
-          },
-          {
-            "group": "Integrations",
-            "pages": [
-              "integrations/overview",
-              "integrations/slack",
-              "integrations/zapier"
-            ]
-          },
-          {
-            "group": "Help",
-            "pages": [
-              "faq",
-              "troubleshooting"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API Reference",
-        "groups": [
-          {
-            "group": "Overview",
-            "pages": [
-              "api/introduction",
-              "api/authentication",
-              "api/rate-limits"
-            ]
-          },
-          {
-            "group": "Endpoints",
-            "pages": [
-              "api/articles",
-              "api/collections",
-              "api/users",
-              "api/search"
-            ]
-          }
-        ]
-      }
-    ]
+  "colors": {
+    "primary": "#1e3a8a",
+    "light": "#60a5fa",
+    "dark": "#1e3a8a"
   },
-  "navbar": {
-    "primary": {
-      "type": "button",
-      "label": "Get Started",
-      "href": "/quickstart"
+  "topbarCtaButton": {
+    "name": "Go to Voru",
+    "url": "https://app.voru.io"
+  },
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": ["introduction", "quickstart", "user-roles"]
+    },
+    {
+      "group": "Dashboard",
+      "pages": ["dashboard/overview"]
+    },
+    {
+      "group": "Daily Lead Generation",
+      "pages": ["lead-gen/tracker", "lead-gen/nurture-crm"]
+    },
+    {
+      "group": "Pipeline and Transactions",
+      "pages": ["pipeline/overview", "pipeline/transaction-statuses", "pipeline/adding-transactions", "pipeline/importing"]
+    },
+    {
+      "group": "Goals and Performance",
+      "pages": ["goals/setting-goals", "goals/scorecards", "goals/leaderboard", "goals/sold-board"]
+    },
+    {
+      "group": "Financial Management",
+      "pages": ["financials/business-plan", "financials/financials", "financials/roi-tracker"]
+    },
+    {
+      "group": "Analytics and Reports",
+      "pages": ["analytics/trends", "analytics/reports"]
+    },
+    {
+      "group": "Team Features",
+      "pages": ["team/contests", "team/whiteboard", "team/team-management"]
+    },
+    {
+      "group": "Settings and Configuration",
+      "pages": ["settings/profile", "settings/team-settings", "settings/custom-metrics", "settings/integrations"]
+    },
+    {
+      "group": "Help and FAQ",
+      "pages": ["help/faq", "help/best-practices"]
     }
-  }
+  ]
 }
