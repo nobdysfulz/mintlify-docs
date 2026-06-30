@@ -11,46 +11,53 @@
     "name": "Go to Voru",
     "url": "https://app.voru.io"
   },
-  "navigation": [
-    {
-      "group": "Getting Started",
-      "pages": ["introduction", "quickstart", "user-roles"]
-    },
-    {
-      "group": "Dashboard",
-      "pages": ["dashboard/overview"]
-    },
-    {
-      "group": "Daily Lead Generation",
-      "pages": ["lead-gen/tracker", "lead-gen/nurture-crm"]
-    },
-    {
-      "group": "Pipeline and Transactions",
-      "pages": ["pipeline/overview", "pipeline/transaction-statuses", "pipeline/adding-transactions", "pipeline/importing"]
-    },
-    {
-      "group": "Goals and Performance",
-      "pages": ["goals/setting-goals", "goals/scorecards", "goals/leaderboard", "goals/sold-board"]
-    },
-    {
-      "group": "Financial Management",
-      "pages": ["financials/business-plan", "financials/financials", "financials/roi-tracker"]
-    },
-    {
-      "group": "Analytics and Reports",
-      "pages": ["analytics/trends", "analytics/reports"]
-    },
-    {
-      "group": "Team Features",
-      "pages": ["team/contests", "team/whiteboard", "team/team-management"]
-    },
-    {
-      "group": "Settings and Configuration",
-      "pages": ["settings/profile", "settings/team-settings", "settings/custom-metrics", "settings/integrations"]
-    },
-    {
-      "group": "Help and FAQ",
-      "pages": ["help/faq", "help/best-practices"]
-    }
-  ]
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Help Center",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": ["introduction", "quickstart", "user-roles"]
+          },
+          {
+            "group": "Dashboard",
+            "pages": ["dashboard/overview"]
+          },
+          {
+            "group": "Daily Lead Generation",
+            "pages": ["lead-gen/tracker", "lead-gen/nurture-crm"]
+          },
+          {
+            "group": "Pipeline and Transactions",
+            "pages": ["pipeline/overview", "pipeline/transaction-statuses", "pipeline/adding-transactions", "pipeline/importing"]
+          },
+          {
+            "group": "Goals and Performance",
+            "pages": ["goals/setting-goals", "goals/scorecards", "goals/leaderboard", "goals/sold-board"]
+          },
+          {
+            "group": "Financial Management",
+            "pages": ["financials/business-plan", "financials/financials", "financials/roi-tracker"]
+          },
+          {
+            "group": "Analytics and Reports",
+            "pages": ["analytics/trends", "analytics/reports"]
+          },
+          {
+            "group": "Team Features",
+            "pages": ["team/contests", "team/whiteboard", "team/team-management"]
+          },
+          {
+            "group": "Settings and Configuration",
+            "pages": ["settings/profile", "settings/team-settings", "settings/custom-metrics", "settings/integrations"]
+          },
+          {
+            "group": "Help and FAQ",
+            "pages": ["help/faq", "help/best-practices"]
+          }
+        ]
+      }
+    ]
+  }
 }
